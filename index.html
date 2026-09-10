@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diva Salon & Academy - Billing</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,sans-serif;
+  background:#080808;
+  color:#f5d77a;
+}
+header{
+  background:#000;
+  border-bottom:2px solid #c9a227;
+  padding:18px;
+  text-align:center;
+}
+header h1{font-size:25px;color:#e7c45c}
+header p{color:#aaa;margin-top:5px}
+
+.container{max-width:1200px;margin:auto;padding:18px}
+
+.card{
+  background:#111;
+  border:1px solid #4e3d12;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 0 15px rgba(201,162,39,.08);
+}
+
+h2{
+  color:#e7c45c;
+  margin-bottom:15px;
+}
+
+label{
+  display:block;
+  color:#bbb;
+  margin-bottom:6px;
+  font-size:14px;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  background:#050505;
+  color:#fff;
+  border:1px solid #66521b;
+  border-radius:7px;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:#e7c45c;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+button{
+  border:0;
+  border-radius:7px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.gold{
+  background:#d4af37;
+  color:#000;
+}
+
+.dark{
+  background:#222;
+  color:#e7c45c;
+  border:1px solid #66521b;
+}
+
+.danger{
+  background:#9b2020;
+  color:#fff;
+}
+
+button:hover{opacity:.85}
+
+.service-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr auto;
+  gap:8px;
+  margin-bottom:8px;
+  align-items:end;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+}
+
+th,td{
+  border-bottom:1px solid #33290e;
+  padding:10px;
+  text-align:left;
+}
+
+th{
+  color:#e7c45c;
+  background:#090909;
+}
+
+td{color:#ddd}
+
+.total-box{
+  max-width:400px;
+  margin-left:auto;
+  margin-top:20px;
+}
+
+.total-line{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  color:#ddd;
+}
+
+.grand{
+  border-top:1px solid #c9a227;
+  font-size:22px;
+  color:#e7c45c;
+  font-weight:bold;
+  padding-top:12px;
+}
+
+.hidden{display:none}
+
+.status{
+  padding:12px;
+  margin-bottom:15px;
+  border-radius:7px;
+  background:#171717;
+  color:#ddd;
+}
+
+.nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.bill-head{
+  text-align:center;
+  border-bottom:1px dashed #999;
+  padding-bottom:15px;
+  margin-bottom:15px;
+}
+
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .service-row{
+    grid-template-columns:1fr 1fr;
+  }
+  table{font-size:13px}
+}
+
+@media print{
+  body{background:#fff;color:#000}
+  header,.nav,.no-print,.card:not(#printArea){display:none!important}
+  #printArea{
+    display:block!important;
+    color:#000;
+    border:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>DIVA SALON & ACADEMY</h1>
+  <p>BARHI CHOWK • JHUMRI TILAIYA ROAD • BESIDE FASHION WORLD MALL</p>
+  <p>PIN - 825405 | Mob: 9122119941 | WhatsApp: 9102469965</p>
+</header>
+
+<div class="container">
+
+<div class="nav no-print">
+  <button class="gold" onclick="showSection('billing')">Billing</button>
+  <button class="dark" onclick="showSection('customers')">Customers</button>
+  <button class="dark" onclick="showSection('services')">Services</button>
+  <button class="dark" onclick="showSection('history')">Bill History</button>
+</div>
+
+<div id="status" class="status no-print">Ready</div>
+
+<!-- BILLING -->
+<section id="billing">
+
+<div class="card">
+<h2>🧾 New Bill</h2>
+
+<div class="grid">
+
+<div>
+<label>Customer Name</label>
+<input id="customerName" placeholder="Customer name">
+</div>
+
+<div>
+<label>Mobile Number</label>
+<input id="customerMobile" placeholder="Mobile number">
+</div>
+
+<div>
+<label>Customer Type</label>
+<select id="gender">
+<option>Gents</option>
+<option>Ladies</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>
+<label>Payment Mode</label>
+<select id="paymentMode">
+<option>Cash</option>
+<option>UPI</option>
+<option>Card</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h2>💇 Select Services</h2>
+
+<div id="serviceRows"></div>
+
+<button class="gold" onclick="addServiceRow()">+ Add Service</button>
+</div>
+
+<div class="card">
+<h2>💰 Bill Summary</h2>
+
+<div class="grid">
+
+<div>
+<label>Discount</label>
+<input id="discount" type="number" value="0" min="0" oninput="calculateBill()">
+</div>
+
+<div>
+<label>GST %</label>
+<input id="gstRate" type="number" value="0" min="0" oninput="calculateBill()">
+</div>
+
+</div>
+
+<div class="total-box">
+
+<div class="total-line">
+<span>Subtotal</span>
+<span>₹ <b id="subtotal">0.00</b></span>
+</div>
+
+<div class="total-line">
+<span>Discount</span>
+<span>₹ <b id="discountValue">0.00</b></span>
+</div>
+
+<div class="total-line">
+<span>GST</span>
+<span>₹ <b id="gstValue">0.00</b></span>
+</div>
+
+<div class="total-line grand">
+<span>Grand Total</span>
+<span>₹ <b id="grandTotal">0.00</b></span>
+</div>
+
+</div>
+
+<br>
+
+<button class="gold" onclick="saveBill()">💾 SAVE BILL</button>
+<button class="dark" onclick="printBill()">🖨️ PRINT BILL</button>
+<button class="danger" onclick="newBill()">NEW BILL</button>
+
+</div>
+
+</section>
+
+<!-- CUSTOMERS -->
+<section id="customers" class="hidden">
+
+<div class="card">
+<h2>👤 Customer Master</h2>
+
+<div class="grid">
+<div>
+<label>Customer Name</label>
+<input id="newCustomerName">
+</div>
+
+<div>
+<label>Mobile</label>
+<input id="newCustomerMobile">
+</div>
+
+<div>
+<label>Gender</label>
+<select id="newCustomerGender">
+<option>Ladies</option>
+<option>Gents</option>
+<option>Other</option>
+</select>
+</div>
+
+</div>
+
+<br>
+<button class="gold" onclick="saveCustomer()">ADD CUSTOMER</button>
+</div>
+
+<div class="card">
+<h2>Customer List</h2>
+<div id="customerList">Loading...</div>
+</div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="hidden">
+
+<div class="card">
+<h2>💇 Service Master</h2>
+
+<div class="grid">
+
+<div>
+<label>Service Name</label>
+<input id="serviceName" placeholder="Example: Hair Cut">
+</div>
+
+<div>
+<label>Category</label>
+<select id="serviceCategory">
+<option>Ladies</option>
+<option>Gents</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>
+<label>Rate</label>
+<input id="serviceRate" type="number" placeholder="0">
+</div>
+
+</div>
+
+<br>
+<button class="gold" onclick="saveService()">ADD SERVICE</button>
+</div>
+
+<div class="card">
+<h2>Service List</h2>
+<div id="serviceList">Loading...</div>
+</div>
+
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="hidden">
+
+<div class="card">
+<h2>📋 Bill History</h2>
+<button class="gold" onclick="loadBills()">REFRESH</button>
+<div id="billList">Loading...</div>
+</div>
+
+</section>
+
+<!-- PRINT -->
+<section id="printArea" class="card hidden">
+
+<div class="bill-head">
+<h2>DIVA SALON & ACADEMY</h2>
+<p>BARHI CHOWK, JHUMRI TILAIYA ROAD</p>
+<p>BESIDE FASHION WORLD MALL, PIN - 825405</p>
+<p>Mob: 9122119941 | WhatsApp: 9102469965</p>
+</div>
+
+<div id="printContent"></div>
+
+</section>
+
+</div>
+
+<script>
+
+/* =====================================================
+   SUPABASE CONNECTION
+   ===================================================== */
+
+const SUPABASE_URL = "https://wcnvhyftwgdttvzoeoya.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_37pgQIl_Cfj9cdCmSWvq8w_zdqIfpXC";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* =====================================================
+   GLOBAL DATA
+   ===================================================== */
+
+let services = [];
+let serviceRows = 0;
+
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+function status(message){
+  document.getElementById("status").innerText = message;
+}
+
+
+/* =====================================================
+   SECTION
+   ===================================================== */
+
+function showSection(section){
+
+  document.querySelectorAll("section").forEach(s=>{
+    s.classList.add("hidden");
+  });
+
+  document.getElementById(section).classList.remove("hidden");
+
+  if(section==="customers") loadCustomers();
+  if(section==="services") loadServices();
+  if(section==="history") loadBills();
+}
+
+
+/* =====================================================
+   LOAD SERVICES
+   ===================================================== */
+
+async function loadServices(){
+
+  const {data,error} = await db
+    .from("services")
+    .select("*")
+    .eq("active",true)
+    .order("category")
+    .order("service_name");
+
+  if(error){
+    status("Service loading failed: "+error.message);
+    return;
+  }
+
+  services=data || [];
+
+  document.getElementById("serviceList").innerHTML =
+    services.map(s=>`
+      <div style="padding:10px;border-bottom:1px solid #33290e">
+        <b>${escapeHtml(s.service_name)}</b>
+        <span style="float:right">
+          ${escapeHtml(s.category)} — ₹${Number(s.rate).toFixed(2)}
+        </span>
+      </div>
+    `).join("") || "No services";
+
+}
+
+
+/* =====================================================
+   ADD SERVICE ROW
+   ===================================================== */
+
+async function addServiceRow(){
+
+  if(services.length===0){
+    await loadServices();
+  }
+
+  serviceRows++;
+
+  const id="row_"+serviceRows;
+
+  const options=services.map(s=>`
+    <option value="${s.id}" data-rate="${s.rate}">
+      ${escapeHtml(s.service_name)} - ${escapeHtml(s.category)}
+    </option>
+  `).join("");
+
+  const div=document.createElement("div");
+
+  div.className="service-row";
+  div.id=id;
+
+  div.innerHTML=`
+
+    <div>
+      <label>Service</label>
+      <select class="bill-service" onchange="serviceChanged(this)">
+        <option value="">Select Service</option>
+        ${options}
+      </select>
+    </div>
+
+    <div>
+      <label>Qty</label>
+      <input class="bill-qty" type="number" value="1" min="1"
+             oninput="calculateBill()">
+    </div>
+
+    <div>
+      <label>Rate</label>
+      <input class="bill-rate" type="number" value="0"
+             oninput="calculateBill()">
+    </div>
+
+    <div>
+      <label>Amount</label>
+      <input class="bill-amount" type="number" value="0" readonly>
+    </div>
+
+    <button class="danger" onclick="removeServiceRow('${id}')">
+      X
+    </button>
+  `;
+
+  document.getElementById("serviceRows").appendChild(div);
+
+}
+
+
+/* =====================================================
+   SERVICE CHANGE
+   ===================================================== */
+
+function serviceChanged(select){
+
+  const option=select.options[select.selectedIndex];
+
+  const row=select.closest(".service-row");
+
+  const rate=option.dataset.rate || 0;
+
+  row.querySelector(".bill-rate").value=rate;
+
+  calculateBill();
+}
+
+
+/* =====================================================
+   REMOVE ROW
+   ===================================================== */
+
+function removeServiceRow(id){
+
+  document.getElementById(id)?.remove();
+
+  calculateBill();
+}
+
+
+/* =====================================================
+   CALCULATE
+   ===================================================== */
+
+function calculateBill(){
+
+  let subtotal=0;
+
+  document.querySelectorAll(".service-row").forEach(row=>{
+
+    const qty=Number(row.querySelector(".bill-qty").value)||0;
+
+    const rate=Number(row.querySelector(".bill-rate").value)||0;
+
+    const amount=qty*rate;
+
+    row.querySelector(".bill-amount").value=amount.toFixed(2);
+
+    subtotal+=amount;
+
+  });
+
+  const discount=Number(document.getElementById("discount").value)||0;
+
+  const taxable=Math.max(subtotal-discount,0);
+
+  const gstRate=Number(document.getElementById("gstRate").value)||0;
+
+  const gst=taxable*gstRate/100;
+
+  const total=taxable+gst;
+
+  document.getElementById("subtotal").innerText=subtotal.toFixed(2);
+
+  document.getElementById("discountValue").innerText=discount.toFixed(2);
+
+  document.getElementById("gstValue").innerText=gst.toFixed(2);
+
+  document.getElementById("grandTotal").innerText=total.toFixed(2);
+
+  return {
+    subtotal,
+    discount,
+    gst,
+    total
+  };
+}
+
+
+/* =====================================================
+   SAVE CUSTOMER
+   ===================================================== */
+
+async function saveCustomer(){
+
+  const name=document.getElementById("newCustomerName").value.trim();
+
+  const mobile=document.getElementById("newCustomerMobile").value.trim();
+
+  const gender=document.getElementById("newCustomerGender").value;
+
+  if(!name){
+    alert("Customer name required");
+    return;
+  }
+
+  const {error}=await db
+    .from("customers")
+    .insert({
+      customer_name:name,
+      mobile:mobile,
+      gender:gender
+    });
+
+  if(error){
+    alert("Customer save failed: "+error.message);
+    return;
+  }
+
+  alert("Customer saved successfully");
+
+  document.getElementById("newCustomerName").value="";
+  document.getElementById("newCustomerMobile").value="";
+
+  loadCustomers();
+}
+
+
+/* =====================================================
+   LOAD CUSTOMERS
+   ===================================================== */
+
+async function loadCustomers(){
+
+  const {data,error}=await db
+    .from("customers")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    document.getElementById("customerList").innerText=
+      "Loading failed: "+error.message;
+    return;
+  }
+
+  document.getElementById("customerList").innerHTML=
+    (data||[]).map(c=>`
+      <div style="padding:12px;border-bottom:1px solid #33290e">
+        <b>${escapeHtml(c.customer_name)}</b>
+        <br>
+        <small>
+          ${escapeHtml(c.mobile||"")} |
+          ${escapeHtml(c.gender||"")}
+        </small>
+      </div>
+    `).join("") || "No customers";
+}
+
+
+/* =====================================================
+   SAVE SERVICE
+   ===================================================== */
+
+async function saveService(){
+
+  const name=document.getElementById("serviceName").value.trim();
+
+  const category=document.getElementById("serviceCategory").value;
+
+  const rate=Number(document.getElementById("serviceRate").value)||0;
+
+  if(!name){
+    alert("Service name required");
+    return;
+  }
+
+  const {error}=await db
+    .from("services")
+    .insert({
+      service_name:name,
+      category:category,
+      rate:rate,
+      active:true
+    });
+
+  if(error){
+    alert("Service save failed: "+error.message);
+    return;
+  }
+
+  alert("Service added successfully");
+
+  document.getElementById("serviceName").value="";
+  document.getElementById("serviceRate").value="";
+
+  loadServices();
+}
+
+
+/* =====================================================
+   GENERATE BILL NUMBER
+   ===================================================== */
+
+function generateBillNo(){
+
+  const now=new Date();
+
+  const date=
+    now.getFullYear().toString()+
+    String(now.getMonth()+1).padStart(2,"0")+
+    String(now.getDate()).padStart(2,"0");
+
+  const time=
+    String(now.getHours()).padStart(2,"0")+
+    String(now.getMinutes()).padStart(2,"0")+
+    String(now.getSeconds()).padStart(2,"0");
+
+  return "DIVA-"+date+"-"+time;
+}
+
+
+/* =====================================================
+   SAVE BILL
+   ===================================================== */
+
+async function saveBill(){
+
+  const customerName=
+    document.getElementById("customerName").value.trim();
+
+  const mobile=
+    document.getElementById("customerMobile").value.trim();
+
+  const gender=
+    document.getElementById("gender").value;
+
+  const payment=
+    document.getElementById("paymentMode").value;
+
+  if(!customerName){
+    alert("Customer name required");
+    return;
+  }
+
+  const rows=
+    [...document.querySelectorAll(".service-row")];
+
+  if(rows.length===0){
+    alert("Please add at least one service");
+    return;
+  }
+
+  const bill=calculateBill();
+
+  const billNo=generateBillNo();
+
+  /* Find existing customer */
+
+  let customerId=null;
+
+  const {data:existing}=await db
+    .from("customers")
+    .select("id")
+    .eq("mobile",mobile)
+    .limit(1);
+
+  if(existing && existing.length){
+    customerId=existing[0].id;
+  }
+
+  /* Save customer if new */
+
+  if(!customerId){
+
+    const {data:newCustomer,error}=await db
+      .from("customers")
+      .insert({
+        customer_name:customerName,
+        mobile:mobile,
+        gender:gender
+      })
+      .select()
+      .single();
+
+    if(error){
+      alert("Customer save failed: "+error.message);
+      return;
+    }
+
+    customerId=newCustomer.id;
+  }
+
+  /* Save bill */
+
+  const {data:savedBill,error:billError}=await db
+    .from("bills")
+    .insert({
+      bill_no:billNo,
+      customer_id:customerId,
+      customer_name:customerName,
+      mobile:mobile,
+      subtotal:bill.subtotal,
+      discount:bill.discount,
+      gst:bill.gst,
+      grand_total:bill.total,
+      payment_mode:payment
+    })
+    .select()
+    .single();
+
+  if(billError){
+    alert("Bill save failed: "+billError.message);
+    return;
+  }
+
+  /* Save bill items */
+
+  const items=rows.map(row=>{
+
+    const select=row.querySelector(".bill-service");
+
+    const selected=
+      select.options[select.selectedIndex];
+
+    return {
+      bill_id:savedBill.id,
+      service_id:select.value || null,
+      service_name:selected?.textContent.trim() || "Service",
+      category:selected?.textContent.includes("Ladies")
+        ? "Ladies"
+        : selected?.textContent.includes("Gents")
+        ? "Gents"
+        : "Other",
+      qty:Number(row.querySelector(".bill-qty").value)||1,
+      rate:Number(row.querySelector(".bill-rate").value)||0,
+      amount:Number(row.querySelector(".bill-amount").value)||0
+    };
+
+  });
+
+  const {error:itemError}=await db
+    .from("bill_items")
+    .insert(items);
+
+  if(itemError){
+    alert("Bill items save failed: "+itemError.message);
+    return;
+  }
+
+  status("Bill saved successfully: "+billNo);
+
+  alert("Bill saved successfully\nBill No: "+billNo);
+
+  preparePrint(savedBill,items);
+
+}
+
+
+/* =====================================================
+   PRINT BILL
+   ===================================================== */
+
+function preparePrint(bill,items){
+
+  const html=`
+
+    <p><b>Bill No:</b> ${bill.bill_no}</p>
+    <p><b>Date:</b> ${new Date(bill.created_at).toLocaleString()}</p>
+
+    <br>
+
+    <p><b>Customer:</b> ${escapeHtml(bill.customer_name||"")}</p>
+    <p><b>Mobile:</b> ${escapeHtml(bill.mobile||"")}</p>
+
+    <br>
+
+    <table>
+      <tr>
+        <th>Service</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+
+      ${items.map(i=>`
+        <tr>
+          <td>${escapeHtml(i.service_name)}</td>
+          <td>${i.qty}</td>
+          <td>₹${Number(i.rate).toFixed(2)}</td>
+          <td>₹${Number(i.amount).toFixed(2)}</td>
+        </tr>
+      `).join("")}
+
+    </table>
+
+    <div class="total-box">
+
+      <div class="total-line">
+        <span>Subtotal</span>
+        <span>₹${Number(bill.subtotal).toFixed(2)}</span>
+      </div>
+
+      <div class="total-line">
+        <span>Discount</span>
+        <span>₹${Number(bill.discount).toFixed(2)}</span>
+      </div>
+
+      <div class="total-line">
+        <span>GST</span>
+        <span>₹${Number(bill.gst).toFixed(2)}</span>
+      </div>
+
+      <div class="total-line grand">
+        <span>Grand Total</span>
+        <span>₹${Number(bill.grand_total).toFixed(2)}</span>
+      </div>
+
+    </div>
+
+    <br>
+
+    <p><b>Payment:</b> ${escapeHtml(bill.payment_mode)}</p>
+
+    <br>
+    <center>Thank You! Visit Again.</center>
+  `;
+
+  document.getElementById("printContent").innerHTML=html;
+
+}
+
+
+/* =====================================================
+   PRINT
+   ===================================================== */
+
+function printBill(){
+
+  if(!document.getElementById("printContent").innerHTML){
+    alert("Please save the bill first");
+    return;
+  }
+
+  window.print();
+}
+
+
+/* =====================================================
+   BILL HISTORY
+   ===================================================== */
+
+async function loadBills(){
+
+  const {data,error}=await db
+    .from("bills")
+    .select("*")
+    .order("created_at",{ascending:false})
+    .limit(100);
+
+  if(error){
+    document.getElementById("billList").innerText=
+      "Loading failed: "+error.message;
+    return;
+  }
+
+  document.getElementById("billList").innerHTML=
+
+    `<table>
+      <tr>
+        <th>Bill No</th>
+        <th>Customer</th>
+        <th>Total</th>
+        <th>Payment</th>
+        <th>Date</th>
+      </tr>
+
+      ${(data||[]).map(b=>`
+        <tr>
+          <td>${escapeHtml(b.bill_no)}</td>
+          <td>${escapeHtml(b.customer_name||"")}</td>
+          <td>₹${Number(b.grand_total).toFixed(2)}</td>
+          <td>${escapeHtml(b.payment_mode||"")}</td>
+          <td>${new Date(b.created_at).toLocaleString()}</td>
+        </tr>
+      `).join("")}
+
+    </table>`;
+
+}
+
+
+/* =====================================================
+   NEW BILL
+   ===================================================== */
+
+function newBill(){
+
+  document.getElementById("customerName").value="";
+  document.getElementById("customerMobile").value="";
+
+  document.getElementById("discount").value=0;
+  document.getElementById("gstRate").value=0;
+
+  document.getElementById("serviceRows").innerHTML="";
+
+  serviceRows=0;
+
+  document.getElementById("printContent").innerHTML="";
+
+  calculateBill();
+
+  addServiceRow();
+
+  status("New bill ready");
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHtml(value){
+
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+(async function(){
+
+  await loadServices();
+
+  addServiceRow();
+
+})();
+
+</script>
+
+</body>
+</html>
