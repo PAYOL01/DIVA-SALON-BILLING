@@ -1,0 +1,11 @@
+{
+  "name": "Diva Salon & Academy",
+  "short_name": "Diva Salon",
+  "description": "Professional Billing System",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#d4af37",
+  "orientation": "any"
+}
