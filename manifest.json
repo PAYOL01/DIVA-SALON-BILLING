@@ -2,10 +2,29 @@
   "name": "Diva Salon & Academy",
   "short_name": "Diva Salon",
   "description": "Professional Billing System",
-  "start_url": "./",
-  "scope": "./",
+  "id": "/DIVA-SALON-BILLING/",
+  "start_url": "/DIVA-SALON-BILLING/",
+  "scope": "/DIVA-SALON-BILLING/",
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
   "background_color": "#080808",
   "theme_color": "#d4af37",
-  "orientation": "any"
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
