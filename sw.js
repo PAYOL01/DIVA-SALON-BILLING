@@ -1,18 +1,20 @@
-const CACHE_NAME = "diva-salon-v1";
+const CACHE_NAME = "diva-salon-v3";
 
 const APP_FILES = [
-  "./",
-  "./index.html",
-  "./manifest.json"
+  "/DIVA-SALON-BILLING/",
+  "/DIVA-SALON-BILLING/index.html",
+  "/DIVA-SALON-BILLING/manifest.json",
+  "/DIVA-SALON-BILLING/icon-192.png",
+  "/DIVA-SALON-BILLING/icon-512.png"
 ];
 
 self.addEventListener("install", function(event) {
 
   event.waitUntil(
     caches.open(CACHE_NAME)
-    .then(function(cache) {
-      return cache.addAll(APP_FILES);
-    })
+      .then(function(cache) {
+        return cache.addAll(APP_FILES);
+      })
   );
 
   self.skipWaiting();
@@ -24,8 +26,7 @@ self.addEventListener("activate", function(event) {
 
   event.waitUntil(
 
-    caches.keys()
-    .then(function(names) {
+    caches.keys().then(function(names) {
 
       return Promise.all(
 
@@ -50,34 +51,35 @@ self.addEventListener("activate", function(event) {
 
 self.addEventListener("fetch", function(event) {
 
+  if(event.request.method !== "GET") {
+    return;
+  }
+
   event.respondWith(
 
     fetch(event.request)
-    .then(function(response) {
+      .then(function(response) {
 
-      const copy =
-        response.clone();
+        if(response && response.ok) {
 
-      caches.open(CACHE_NAME)
-      .then(function(cache) {
+          const copy = response.clone();
 
-        cache.put(
-          event.request,
-          copy
-        );
+          caches.open(CACHE_NAME)
+            .then(function(cache) {
+              cache.put(event.request, copy);
+            });
 
-      });
+        }
 
-      return response;
+        return response;
 
-    })
-    .catch(function() {
+      })
 
-      return caches.match(
-        event.request
-      );
+      .catch(function() {
 
-    })
+        return caches.match(event.request);
+
+      })
 
   );
 
