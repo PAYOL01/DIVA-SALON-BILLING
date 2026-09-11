@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Diva Salon & Academy</title>
 
 <meta name="theme-color" content="#080808">
+
 <meta name="mobile-web-app-capable" content="yes">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
+
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 <link rel="manifest" href="manifest.json">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
+
+/* ===============================
+   GLOBAL
+================================ */
 
 *{
  box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
  margin:0;
  padding:0;
  width:100%;
@@ -35,346 +47,687 @@ body{
 }
 
 :root{
+
  --gold:#d4af37;
+
  --gold2:#f4d76b;
+
  --black:#080808;
+
  --panel:#111;
+
  --line:#3c3113;
+
 }
+
+
+/* ===============================
+   HEADER
+================================ */
 
 .header{
- height:72px;
+
+ min-height:72px;
+
  background:#050505;
+
  border-bottom:2px solid var(--gold);
+
  display:flex;
+
  align-items:center;
+
  justify-content:space-between;
- padding:0 22px;
+
+ padding:8px 22px;
+
  position:sticky;
+
  top:0;
+
  z-index:5;
+
 }
+
+
+/* ===============================
+   DIVA LOGO
+================================ */
 
 .logo{
- color:var(--gold2);
- font-size:24px;
- font-weight:bold;
+
+ display:flex;
+
+ align-items:center;
+
 }
 
-.logo small{
- display:block;
- font-size:10px;
- color:#999;
- letter-spacing:2px;
- margin-top:3px;
+
+.diva-logo{
+
+ display:flex;
+
+ flex-direction:column;
+
+ align-items:center;
+
+ justify-content:center;
+
+ min-width:230px;
+
+ padding:2px 10px;
+
+ line-height:1;
+
 }
+
+
+.logo-crown{
+
+ color:#d4af37;
+
+ font-size:20px;
+
+ margin-bottom:1px;
+
+ text-shadow:
+
+  0 0 5px #d4af37,
+
+  0 0 12px #6d5010;
+
+}
+
+
+.logo-name{
+
+ font-family:Georgia,"Times New Roman",serif;
+
+ font-size:28px;
+
+ font-weight:bold;
+
+ letter-spacing:5px;
+
+ color:#d4af37;
+
+ text-shadow:
+
+  0 1px 0 #fff1a8,
+
+  0 0 8px #d4af37,
+
+  0 0 18px #6d5010;
+
+}
+
+
+.logo-sub{
+
+ margin-top:5px;
+
+ color:#f4d76b;
+
+ font-size:9px;
+
+ letter-spacing:3px;
+
+ font-weight:bold;
+
+}
+
 
 .header-right{
+
  display:flex;
+
  align-items:center;
+
  gap:10px;
+
 }
+
 
 .clock{
+
  color:#aaa;
+
  font-size:13px;
+
 }
+
 
 .install-btn{
+
  display:none;
+
  background:var(--gold);
+
  color:#000;
+
  border:0;
+
  border-radius:6px;
+
  padding:9px 12px;
+
  font-weight:bold;
+
  cursor:pointer;
+
 }
+
 
 .install-btn:hover{
+
  background:var(--gold2);
+
 }
+
+
+/* ===============================
+   LAYOUT
+================================ */
 
 .layout{
+
  display:flex;
+
  min-height:calc(100vh - 72px);
+
 }
+
 
 .sidebar{
+
  width:210px;
+
  background:#050505;
+
  border-right:1px solid var(--line);
+
  padding:14px 10px;
+
 }
 
+
 .menu{
+
  width:100%;
+
  text-align:left;
+
  margin-bottom:7px;
+
  background:#101010;
+
  color:#ccc;
+
  border:1px solid #252015;
+
  padding:12px;
+
  border-radius:6px;
+
  cursor:pointer;
+
 }
+
 
 .menu:hover,
 .menu.active{
+
  color:#000;
+
  background:var(--gold);
+
 }
+
 
 .main{
+
  flex:1;
+
  padding:16px;
+
  overflow:auto;
+
 }
+
 
 .page{
+
  display:none;
+
 }
+
 
 .page.active{
+
  display:block;
+
 }
+
+
+/* ===============================
+   TOP BAR
+================================ */
 
 .topbar{
+
  display:flex;
+
  justify-content:space-between;
+
  align-items:center;
+
  gap:10px;
+
  margin-bottom:12px;
+
 }
+
 
 .title{
+
  color:var(--gold2);
+
  font-size:21px;
+
  font-weight:bold;
+
 }
+
 
 .status{
+
  padding:9px 12px;
+
  background:#151515;
+
  border:1px solid var(--line);
+
  color:#aaa;
+
  border-radius:5px;
+
  font-size:12px;
+
 }
+
+
+/* ===============================
+   PANEL
+================================ */
 
 .panel{
+
  background:var(--panel);
+
  border:1px solid var(--line);
+
  border-radius:7px;
+
  margin-bottom:14px;
+
 }
+
 
 .panel-head{
+
  padding:11px 14px;
+
  background:#0c0c0c;
+
  border-bottom:1px solid var(--line);
+
  color:var(--gold2);
+
  font-weight:bold;
+
 }
+
 
 .panel-body{
+
  padding:14px;
+
 }
+
+
+/* ===============================
+   FORM
+================================ */
 
 .formgrid{
+
  display:grid;
+
  grid-template-columns:repeat(4,1fr);
+
  gap:10px;
+
 }
 
+
 .field label{
+
  display:block;
+
  color:#999;
+
  font-size:11px;
+
  margin-bottom:5px;
+
 }
+
 
 input,
 select{
+
  width:100%;
+
  height:38px;
+
  background:#070707;
+
  border:1px solid #4b3d18;
+
  border-radius:5px;
+
  color:#fff;
+
  padding:0 10px;
+
  outline:none;
+
 }
+
 
 input:focus,
 select:focus{
+
  border-color:var(--gold);
+
 }
+
+
+/* ===============================
+   BUTTONS
+================================ */
 
 .btn{
+
  border:0;
+
  border-radius:5px;
+
  padding:10px 15px;
+
  cursor:pointer;
+
  font-weight:bold;
+
 }
+
 
 .btn:hover{
+
  opacity:.9;
+
 }
+
 
 .gold{
+
  background:var(--gold);
+
  color:#000;
+
 }
+
 
 .dark{
+
  background:#171717;
+
  border:1px solid #594719;
+
  color:var(--gold2);
+
 }
+
 
 .red{
+
  background:#8d2020;
+
  color:#fff;
+
 }
+
 
 .btnrow{
+
  display:flex;
+
  flex-wrap:wrap;
+
  gap:7px;
+
  margin-top:12px;
+
 }
+
+
+/* ===============================
+   SERVICE
+================================ */
 
 .servicebar{
+
  display:grid;
+
  grid-template-columns:130px 1fr 100px 80px;
+
  gap:8px;
+
  align-items:end;
+
 }
 
-.searchbox{
- display:flex;
- gap:6px;
-}
 
-.searchbox input{
- flex:1;
-}
+/* ===============================
+   TABLE
+================================ */
 
 table{
+
  width:100%;
+
  border-collapse:collapse;
+
 }
+
 
 th{
+
  background:#090909;
+
  color:var(--gold2);
+
  font-size:12px;
+
  padding:10px 7px;
+
  border-bottom:1px solid var(--gold);
+
  text-align:left;
+
 }
+
 
 td{
+
  padding:9px 7px;
+
  border-bottom:1px solid #29220f;
+
  color:#ddd;
+
  font-size:13px;
+
 }
+
 
 td input{
+
  height:30px;
+
 }
+
 
 .right{
+
  text-align:right;
+
 }
+
 
 .center{
+
  text-align:center;
+
 }
+
+
+/* ===============================
+   TOTAL
+================================ */
 
 .bill-total{
+
  width:420px;
+
  max-width:100%;
+
  margin-left:auto;
+
  margin-top:12px;
+
 }
+
 
 .totalrow{
+
  display:flex;
+
  justify-content:space-between;
+
  padding:7px 10px;
+
  color:#bbb;
+
 }
+
 
 .totalrow.net{
+
  border-top:1px solid var(--gold);
+
  margin-top:4px;
+
  color:var(--gold2);
+
  font-size:22px;
+
  font-weight:bold;
+
  padding-top:12px;
+
 }
+
+
+/* ===============================
+   REPORT CARDS
+================================ */
 
 .cards{
+
  display:grid;
+
  grid-template-columns:repeat(4,1fr);
+
  gap:12px;
+
 }
+
 
 .stat{
+
  background:#111;
+
  border:1px solid var(--line);
+
  border-radius:7px;
+
  padding:18px;
+
 }
+
 
 .stat span{
+
  display:block;
+
  color:#888;
+
  font-size:12px;
+
 }
+
 
 .stat b{
+
  display:block;
+
  color:var(--gold2);
+
  font-size:25px;
+
  margin-top:8px;
+
 }
 
-.modal{
- display:none;
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.75);
- z-index:10;
- align-items:center;
- justify-content:center;
-}
-
-.modalbox{
- width:500px;
- max-width:94%;
- background:#111;
- border:1px solid var(--gold);
- border-radius:8px;
- padding:18px;
-}
 
 .small{
+
  font-size:11px;
+
  color:#888;
+
 }
 
+
 .badge{
+
  padding:4px 7px;
+
  border:1px solid #5c4b1a;
+
  border-radius:20px;
+
  color:var(--gold2);
+
  font-size:10px;
+
 }
+
+
+/* ===============================
+   TABLET
+================================ */
 
 @media(max-width:900px){
 
@@ -392,157 +745,258 @@ td input{
 
 }
 
+
+/* ===============================
+   MOBILE
+================================ */
+
 @media(max-width:600px){
 
  .header{
+
   height:auto;
-  min-height:64px;
-  padding:10px;
+
+  min-height:65px;
+
+  padding:8px;
+
  }
 
- .logo{
-  font-size:18px;
+ .diva-logo{
+
+  min-width:auto;
+
+  align-items:flex-start;
+
+  padding:0;
+
  }
 
- .logo small{
-  font-size:8px;
+ .logo-crown{
+
+  font-size:14px;
+
+ }
+
+ .logo-name{
+
+  font-size:20px;
+
+  letter-spacing:3px;
+
+ }
+
+ .logo-sub{
+
+  font-size:6px;
+
+  letter-spacing:2px;
+
  }
 
  .clock{
+
   display:none;
+
  }
 
  .header-right{
+
   gap:5px;
+
  }
 
  .install-btn{
+
   padding:8px 9px;
-  font-size:11px;
+
+  font-size:10px;
+
  }
 
  .layout{
+
   display:block;
-  min-height:calc(100vh - 64px);
+
+  min-height:calc(100vh - 65px);
+
  }
 
  .sidebar{
+
   width:100%;
+
   display:flex;
+
   overflow-x:auto;
+
   gap:5px;
+
   border-right:0;
+
   border-bottom:1px solid var(--line);
+
   padding:8px;
+
  }
 
  .menu{
+
   min-width:115px;
+
   margin:0;
+
   white-space:nowrap;
+
   text-align:center;
+
   padding:10px 8px;
+
  }
 
  .main{
+
   padding:8px;
+
  }
 
  .formgrid{
+
   grid-template-columns:1fr;
+
  }
 
  .servicebar{
+
   grid-template-columns:1fr;
+
  }
 
  .cards{
+
   grid-template-columns:1fr 1fr;
+
  }
 
  table{
+
   min-width:650px;
+
  }
 
  .panel-body{
+
   overflow-x:auto;
+
  }
 
  .bill-total{
+
   width:100%;
+
  }
 
 }
+
 
 @media(max-width:380px){
 
  .cards{
+
   grid-template-columns:1fr;
+
  }
 
  .title{
+
   font-size:18px;
+
  }
 
 }
+
+
+/* ===============================
+   PRINT
+================================ */
 
 @media print{
 
  body{
+
   background:#fff;
+
   color:#000;
+
  }
 
  body>*:not(#printWindow){
+
   display:none!important;
+
  }
 
  #printWindow{
+
   display:block!important;
+
   position:absolute;
+
   left:0;
+
   top:0;
+
   width:100%;
+
   background:#fff;
+
   color:#000;
+
  }
 
 }
 
+
 #printWindow{
+
  display:none;
+
 }
 
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- ===============================
+     HEADER
+================================ -->
 
 <div class="header">
 
  <div class="logo">
 
-  DIVA SALON & ACADEMY
+  <div class="diva-logo">
 
-  <div class="logo">
+   <div class="logo-crown">
+    ♛
+   </div>
 
- <div class="diva-logo">
+   <div class="logo-name">
+    DIVA
+   </div>
 
-  <div class="logo-crown">
-   ♛
-  </div>
+   <div class="logo-sub">
+    SALON & ACADEMY
+   </div>
 
-  <div class="logo-name">
-   DIVA
-  </div>
-
-  <div class="logo-sub">
-   SALON & ACADEMY
   </div>
 
  </div>
 
-</div>
 
  <div class="header-right">
 
@@ -550,12 +1004,16 @@ td input{
    id="installBtn"
    class="install-btn"
    onclick="installApp()">
+
    📲 INSTALL APP
+
   </button>
+
 
   <div
    class="clock"
    id="clock">
+
   </div>
 
  </div>
@@ -563,76 +1021,110 @@ td input{
 </div>
 
 
+
 <div class="layout">
+
+
+<!-- ===============================
+     SIDEBAR
+================================ -->
 
 <aside class="sidebar">
 
  <button
   class="menu active"
   onclick="openPage('billing',this)">
+
   🧾 New Bill
+
  </button>
+
 
  <button
   class="menu"
   onclick="openPage('customers',this)">
+
   👤 Customers
+
  </button>
+
 
  <button
   class="menu"
   onclick="openPage('services',this)">
+
   💇 Services
+
  </button>
+
 
  <button
   class="menu"
   onclick="openPage('history',this)">
+
   📋 Bill History
+
  </button>
+
 
  <button
   class="menu"
   onclick="openPage('reports',this)">
+
   📊 Reports
+
  </button>
 
 </aside>
 
 
+
 <main class="main">
 
 
-<!-- BILLING -->
+<!-- ===============================
+     BILLING
+================================ -->
 
 <section
  id="billing"
  class="page active">
 
+
 <div class="topbar">
 
  <div class="title">
+
   NEW BILL / SALES INVOICE
+
  </div>
+
 
  <div
   class="status"
   id="status">
+
   Connecting...
+
  </div>
 
 </div>
 
 
+
 <div class="panel">
 
  <div class="panel-head">
+
   CUSTOMER DETAILS
+
  </div>
+
 
  <div class="panel-body">
 
   <div class="formgrid">
+
 
    <div class="field">
 
@@ -647,6 +1139,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -658,6 +1151,7 @@ td input{
      placeholder="Mobile number">
 
    </div>
+
 
 
    <div class="field">
@@ -685,6 +1179,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -697,6 +1192,7 @@ td input{
 
    </div>
 
+
   </div>
 
  </div>
@@ -704,15 +1200,26 @@ td input{
 </div>
 
 
+
+<!-- ===============================
+     SERVICE ENTRY
+================================ -->
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   SERVICE ENTRY
+
  </div>
+
 
  <div class="panel-body">
 
+
   <div class="servicebar">
+
 
    <div class="field">
 
@@ -745,6 +1252,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -759,6 +1267,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -767,18 +1276,24 @@ td input{
 
     <select
      id="serviceSelect">
+
     </select>
 
    </div>
 
 
+
    <button
     class="btn gold"
     onclick="addItem()">
+
     ADD
+
    </button>
 
+
   </div>
+
 
   <br>
 
@@ -821,26 +1336,41 @@ td input{
 
    </thead>
 
+
    <tbody
     id="billItems">
+
    </tbody>
 
+
   </table>
+
 
  </div>
 
 </div>
 
 
+
+<!-- ===============================
+     PAYMENT
+================================ -->
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   PAYMENT & TOTAL
+
  </div>
+
 
  <div class="panel-body">
 
+
   <div class="formgrid">
+
 
    <div class="field">
 
@@ -858,6 +1388,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -872,6 +1403,7 @@ td input{
      oninput="calculate()">
 
    </div>
+
 
 
    <div class="field">
@@ -899,6 +1431,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -914,10 +1447,13 @@ td input{
 
    </div>
 
+
   </div>
 
 
+
   <div class="bill-total">
+
 
    <div class="totalrow">
 
@@ -933,6 +1469,7 @@ td input{
     </b>
 
    </div>
+
 
 
    <div class="totalrow">
@@ -951,6 +1488,7 @@ td input{
    </div>
 
 
+
    <div class="totalrow">
 
     <span>
@@ -967,6 +1505,7 @@ td input{
    </div>
 
 
+
    <div class="totalrow net">
 
     <span>
@@ -974,13 +1513,17 @@ td input{
     </span>
 
     <span>
+
      ₹
+
      <span id="netTotal">
       0.00
      </span>
+
     </span>
 
    </div>
+
 
 
    <div class="totalrow">
@@ -990,13 +1533,17 @@ td input{
     </span>
 
     <b>
+
      ₹
+
      <span id="receivedShow">
       0.00
      </span>
+
     </b>
 
    </div>
+
 
 
    <div class="totalrow">
@@ -1006,76 +1553,112 @@ td input{
     </span>
 
     <b>
+
      ₹
+
      <span id="dueShow">
       0.00
      </span>
+
     </b>
 
    </div>
 
+
   </div>
+
 
 
   <div class="btnrow">
 
+
    <button
     class="btn gold"
     onclick="saveBill()">
+
     💾 SAVE BILL
+
    </button>
+
+
 
    <button
     class="btn dark"
     onclick="saveAndPrint()">
+
     🖨 SAVE & PRINT
+
    </button>
+
+
 
    <button
     class="btn dark"
     onclick="printLastBill()">
+
     PRINT
+
    </button>
+
+
 
    <button
     class="btn red"
     onclick="newBill()">
+
     NEW BILL
+
    </button>
 
+
   </div>
+
 
  </div>
 
 </div>
 
+
 </section>
 
 
-<!-- CUSTOMERS -->
+
+<!-- ===============================
+     CUSTOMERS
+================================ -->
 
 <section
  id="customers"
  class="page">
 
+
 <div class="topbar">
 
  <div class="title">
+
   CUSTOMER MASTER
+
  </div>
 
 </div>
 
 
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   ADD CUSTOMER
+
  </div>
+
 
  <div class="panel-body">
 
+
   <div class="formgrid">
+
 
    <div class="field">
 
@@ -1088,6 +1671,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -1097,6 +1681,7 @@ td input{
     <input id="customerMobile">
 
    </div>
+
 
 
    <div class="field">
@@ -1123,6 +1708,7 @@ td input{
 
    </div>
 
+
   </div>
 
 
@@ -1131,65 +1717,92 @@ td input{
    <button
     class="btn gold"
     onclick="saveCustomer()">
+
     ADD CUSTOMER
+
    </button>
 
   </div>
+
 
  </div>
 
 </div>
 
 
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   CUSTOMER LIST
+
  </div>
 
+
  <div class="panel-body">
+
 
   <input
    placeholder="Search customer..."
    oninput="searchCustomers(this.value)">
 
+
   <br>
   <br>
 
+
   <div id="customerList">
+
   </div>
+
 
  </div>
 
 </div>
 
+
 </section>
 
 
-<!-- SERVICES -->
+
+<!-- ===============================
+     SERVICES
+================================ -->
 
 <section
  id="services"
  class="page">
 
+
 <div class="topbar">
 
  <div class="title">
+
   SERVICE MASTER
+
  </div>
 
 </div>
 
 
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   ADD NEW SERVICE
+
  </div>
+
 
  <div class="panel-body">
 
+
   <div class="formgrid">
+
 
    <div class="field">
 
@@ -1202,6 +1815,7 @@ td input{
      placeholder="Hair Cut">
 
    </div>
+
 
 
    <div class="field">
@@ -1229,6 +1843,7 @@ td input{
    </div>
 
 
+
    <div class="field">
 
     <label>
@@ -1243,6 +1858,7 @@ td input{
 
    </div>
 
+
   </div>
 
 
@@ -1251,53 +1867,75 @@ td input{
    <button
     class="btn gold"
     onclick="saveService()">
+
     ADD SERVICE
+
    </button>
 
   </div>
 
+
  </div>
 
 </div>
 
 
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   SERVICE LIST
+
  </div>
+
 
  <div class="panel-body">
 
   <div id="serviceList">
+
   </div>
 
  </div>
 
 </div>
 
+
 </section>
 
 
-<!-- HISTORY -->
+
+<!-- ===============================
+     HISTORY
+================================ -->
 
 <section
  id="history"
  class="page">
 
+
 <div class="topbar">
 
+
  <div class="title">
+
   BILL HISTORY
+
  </div>
+
 
  <button
   class="btn gold"
   onclick="loadBills()">
+
   REFRESH
+
  </button>
 
+
 </div>
+
 
 
 <div class="panel">
@@ -1305,37 +1943,52 @@ td input{
  <div class="panel-body">
 
   <div id="billHistory">
+
   </div>
 
  </div>
 
 </div>
 
+
 </section>
 
 
-<!-- REPORTS -->
+
+<!-- ===============================
+     REPORTS
+================================ -->
 
 <section
  id="reports"
  class="page">
 
+
 <div class="topbar">
 
+
  <div class="title">
+
   SALES REPORT
+
  </div>
+
 
  <button
   class="btn gold"
   onclick="loadReport()">
+
   REFRESH
+
  </button>
+
 
 </div>
 
 
+
 <div class="cards">
+
 
  <div class="stat">
 
@@ -1350,6 +2003,7 @@ td input{
  </div>
 
 
+
  <div class="stat">
 
   <span>
@@ -1357,13 +2011,17 @@ td input{
   </span>
 
   <b>
+
    ₹
+
    <span id="reportSales">
     0
    </span>
+
   </b>
 
  </div>
+
 
 
  <div class="stat">
@@ -1373,13 +2031,17 @@ td input{
   </span>
 
   <b>
+
    ₹
+
    <span id="reportDiscount">
     0
    </span>
+
   </b>
 
  </div>
+
 
 
  <div class="stat">
@@ -1389,13 +2051,17 @@ td input{
   </span>
 
   <b>
+
    ₹
+
    <span id="todaySales">
     0
    </span>
+
   </b>
 
  </div>
+
 
 </div>
 
@@ -1403,41 +2069,58 @@ td input{
 <br>
 
 
+
 <div class="panel">
 
+
  <div class="panel-head">
+
   RECENT SALES
+
  </div>
+
 
  <div
   class="panel-body"
   id="recentSales">
+
  </div>
+
 
 </div>
 
+
 </section>
+
 
 </main>
 
 </div>
 
 
+
+<!-- PRINT -->
+
 <div id="printWindow">
+
 </div>
+
 
 
 <script>
 
-/* =====================================================
+
+/* ===============================
    SUPABASE
-===================================================== */
+================================ */
 
 const SUPABASE_URL =
 "https://wcnvhyftwgdttvzoeoya.supabase.co";
 
+
 const SUPABASE_KEY =
 "sb_publishable_37pgQIl_Cfj9cdCmSWvq8w_zdqIfpXC";
+
 
 const db =
 window.supabase.createClient(
@@ -1446,38 +2129,53 @@ window.supabase.createClient(
 );
 
 
-/* =====================================================
+
+/* ===============================
    VARIABLES
-===================================================== */
+================================ */
 
 let services=[];
+
 let customers=[];
+
 let billItems=[];
+
 let lastSavedBill=null;
 
 
-/* =====================================================
+
+/* ===============================
    CLOCK
-===================================================== */
+================================ */
 
 function updateClock(){
 
  const d=new Date();
 
- document.getElementById("clock").innerText =
+ document.getElementById("clock").innerText=
+
  d.toLocaleDateString("en-IN")+
+
  "  "+
+
  d.toLocaleTimeString("en-IN");
 
 }
 
-setInterval(updateClock,1000);
+
+setInterval(
+ updateClock,
+ 1000
+);
+
+
 updateClock();
 
 
-/* =====================================================
+
+/* ===============================
    STATUS
-===================================================== */
+================================ */
 
 function status(text){
 
@@ -1485,85 +2183,130 @@ function status(text){
  document.getElementById("status");
 
  if(element){
+
   element.innerText=text;
+
  }
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    PAGE
-===================================================== */
+================================ */
 
 function openPage(id,button){
 
- document.querySelectorAll(".page")
+ document
+ .querySelectorAll(".page")
  .forEach(x=>
   x.classList.remove("active")
  );
 
- document.getElementById(id)
+
+ document
+ .getElementById(id)
  .classList.add("active");
 
- document.querySelectorAll(".menu")
+
+ document
+ .querySelectorAll(".menu")
  .forEach(x=>
   x.classList.remove("active")
  );
+
 
  button.classList.add("active");
 
 
  if(id==="customers"){
+
   loadCustomers();
+
  }
+
 
  if(id==="services"){
+
   loadServices();
+
  }
+
 
  if(id==="history"){
+
   loadBills();
+
  }
 
+
  if(id==="reports"){
+
   loadReport();
+
  }
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    BILL NUMBER
-===================================================== */
+================================ */
 
 function generateBillNo(){
 
  const d=new Date();
 
  return "DIVA"+
+
  d.getFullYear()+
- String(d.getMonth()+1).padStart(2,"0")+
- String(d.getDate()).padStart(2,"0")+
- String(d.getHours()).padStart(2,"0")+
- String(d.getMinutes()).padStart(2,"0")+
- String(d.getSeconds()).padStart(2,"0");
+
+ String(
+  d.getMonth()+1
+ ).padStart(2,"0")+
+
+ String(
+  d.getDate()
+ ).padStart(2,"0")+
+
+ String(
+  d.getHours()
+ ).padStart(2,"0")+
+
+ String(
+  d.getMinutes()
+ ).padStart(2,"0")+
+
+ String(
+  d.getSeconds()
+ ).padStart(2,"0");
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    LOAD SERVICES
-===================================================== */
+================================ */
 
 async function loadServices(){
 
  const result=
+
  await db
+
  .from("services")
+
  .select("*")
+
  .eq("active",true)
+
  .order("category")
+
  .order("service_name");
+
 
  if(result.error){
 
@@ -1575,13 +2318,18 @@ async function loadServices(){
   );
 
   return;
+
  }
+
 
  services=result.data||[];
 
+
  filterServices();
 
+
  renderServiceList();
+
 
  status(
   services.length+
@@ -1591,81 +2339,122 @@ async function loadServices(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    FILTER SERVICES
-===================================================== */
+================================ */
 
 function filterServices(){
 
  const category=
- document.getElementById("serviceGender").value;
+
+ document
+ .getElementById("serviceGender")
+ .value;
+
 
  const search=
- document.getElementById("serviceSearch")
+
+ document
+ .getElementById("serviceSearch")
  .value
  .toLowerCase()
  .trim();
 
+
  const select=
- document.getElementById("serviceSelect");
+
+ document
+ .getElementById("serviceSelect");
+
 
  select.innerHTML=
+
  '<option value="">Select Service</option>';
 
+
  services
+
  .filter(s=>
+
   category==="All"||
+
   s.category===category
+
  )
+
  .filter(s=>
+
   !search||
+
   s.service_name
   .toLowerCase()
   .includes(search)
+
  )
+
  .forEach(s=>{
+
 
   const option=
   document.createElement("option");
 
+
   option.value=s.id;
 
+
   option.dataset.name=
-   s.service_name;
+  s.service_name;
+
 
   option.dataset.category=
-   s.category;
+  s.category;
+
 
   option.dataset.rate=
-   s.rate;
+  s.rate;
+
 
   option.textContent=
-   s.service_name+
-   " | "+
-   s.category+
-   " | ₹"+
-   Number(s.rate).toFixed(2);
+
+  s.service_name+
+
+  " | "+
+
+  s.category+
+
+  " | ₹"+
+
+  Number(s.rate).toFixed(2);
+
 
   select.appendChild(option);
+
 
  });
 
 }
 
 
-/* =====================================================
-   ADD BILL ITEM
-===================================================== */
+
+/* ===============================
+   ADD ITEM
+================================ */
 
 function addItem(){
 
  const select=
- document.getElementById("serviceSelect");
+
+ document
+ .getElementById("serviceSelect");
+
 
  const option=
+
  select.options[
   select.selectedIndex
  ];
+
 
  if(!option||!option.value){
 
@@ -1674,14 +2463,19 @@ function addItem(){
   );
 
   return;
+
  }
+
 
  const id=option.value;
 
+
  const existing=
+
  billItems.find(
   x=>x.service_id===id
  );
+
 
  if(existing){
 
@@ -1689,197 +2483,278 @@ function addItem(){
 
  }else{
 
+
   billItems.push({
+
 
    service_id:id,
 
+
    service_name:
-    option.dataset.name,
+   option.dataset.name,
+
 
    category:
-    option.dataset.category,
+   option.dataset.category,
+
 
    qty:1,
 
+
    rate:
-    Number(option.dataset.rate)||0
+   Number(option.dataset.rate)||0
+
 
   });
 
+
  }
 
+
  renderBillItems();
+
 
  calculate();
 
 }
 
 
-/* =====================================================
-   RENDER BILL ITEMS
-===================================================== */
+
+/* ===============================
+   RENDER ITEMS
+================================ */
 
 function renderBillItems(){
 
  const tbody=
- document.getElementById("billItems");
+
+ document
+ .getElementById("billItems");
+
 
  tbody.innerHTML="";
+
 
  billItems.forEach(
  (item,index)=>{
 
+
   const tr=
-   document.createElement("tr");
+  document.createElement("tr");
+
 
   tr.innerHTML=`
 
-   <td>${index+1}</td>
+
+   <td>
+    ${index+1}
+   </td>
+
 
    <td>
     ${esc(item.service_name)}
    </td>
 
+
    <td>
+
     <span class="badge">
+
      ${esc(item.category)}
+
     </span>
+
    </td>
+
 
    <td>
 
     <input
+
      type="number"
+
      min="1"
+
      value="${item.qty}"
+
      onchange="changeQty(${index},this.value)">
 
    </td>
 
+
    <td>
 
     <input
+
      type="number"
+
      min="0"
+
      value="${item.rate}"
+
      onchange="changeRate(${index},this.value)">
 
    </td>
 
+
    <td class="right">
+
     ₹${(
      item.qty*
      item.rate
     ).toFixed(2)}
+
    </td>
+
 
    <td class="center">
 
     <button
+
      class="btn red"
+
      style="padding:5px 9px"
+
      onclick="removeItem(${index})">
+
      X
+
     </button>
 
    </td>
 
+
   `;
 
+
   tbody.appendChild(tr);
+
 
  });
 
 }
 
 
-/* =====================================================
-   CHANGE QTY / RATE
-===================================================== */
+
+/* ===============================
+   QTY
+================================ */
 
 function changeQty(i,value){
 
  billItems[i].qty=
+
  Math.max(
   1,
   Number(value)||1
  );
 
+
  renderBillItems();
+
+
  calculate();
 
 }
 
 
+
+/* ===============================
+   RATE
+================================ */
+
 function changeRate(i,value){
 
  billItems[i].rate=
+
  Math.max(
   0,
   Number(value)||0
  );
 
+
  renderBillItems();
+
+
  calculate();
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    REMOVE ITEM
-===================================================== */
+================================ */
 
 function removeItem(i){
 
  billItems.splice(i,1);
 
+
  renderBillItems();
+
 
  calculate();
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    CALCULATE
-===================================================== */
+================================ */
 
 function calculate(){
 
  let subtotal=0;
 
+
  billItems.forEach(item=>{
 
   subtotal+=
-   item.qty*
-   item.rate;
+
+  item.qty*
+  item.rate;
 
  });
 
 
  const discount=
+
  Math.max(
+
   0,
+
   Number(
-   document.getElementById(
-    "discount"
-   ).value
+
+   document
+   .getElementById("discount")
+   .value
+
   )||0
+
  );
 
 
  const gstRate=
+
  Math.max(
+
   0,
+
   Number(
-   document.getElementById(
-    "gstRate"
-   ).value
+
+   document
+   .getElementById("gstRate")
+   .value
+
   )||0
+
  );
 
 
  const taxable=
+
  Math.max(
   0,
   subtotal-discount
@@ -1887,37 +2762,43 @@ function calculate(){
 
 
  const gst=
+
  taxable*
  gstRate/
  100;
 
 
  const net=
+
  taxable+
  gst;
 
 
- document.getElementById(
-  "subtotal"
- ).innerText=
+ document
+ .getElementById("subtotal")
+ .innerText=
+
  subtotal.toFixed(2);
 
 
- document.getElementById(
-  "discountShow"
- ).innerText=
+ document
+ .getElementById("discountShow")
+ .innerText=
+
  discount.toFixed(2);
 
 
- document.getElementById(
-  "gstShow"
- ).innerText=
+ document
+ .getElementById("gstShow")
+ .innerText=
+
  gst.toFixed(2);
 
 
- document.getElementById(
-  "netTotal"
- ).innerText=
+ document
+ .getElementById("netTotal")
+ .innerText=
+
  net.toFixed(2);
 
 
@@ -1925,49 +2806,66 @@ function calculate(){
 
 
  return{
+
   subtotal,
+
   discount,
+
   gst,
+
   net
+
  };
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    DUE
-===================================================== */
+================================ */
 
 function calculateDue(){
 
  const net=
+
  Number(
-  document.getElementById(
-   "netTotal"
-  ).innerText
+
+  document
+  .getElementById("netTotal")
+  .innerText
+
  )||0;
 
 
  const received=
+
  Math.max(
+
   0,
+
   Number(
-   document.getElementById(
-    "received"
-   ).value
+
+   document
+   .getElementById("received")
+   .value
+
   )||0
+
  );
 
 
- document.getElementById(
-  "receivedShow"
- ).innerText=
+ document
+ .getElementById("receivedShow")
+ .innerText=
+
  received.toFixed(2);
 
 
- document.getElementById(
-  "dueShow"
- ).innerText=
+ document
+ .getElementById("dueShow")
+ .innerText=
+
  Math.max(
   0,
   net-received
@@ -1976,24 +2874,30 @@ function calculateDue(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    SAVE BILL
-===================================================== */
+================================ */
 
 async function saveBill(
  printAfter=false
 ){
 
+
  const name=
- document.getElementById(
-  "billCustomer"
- ).value.trim();
+
+ document
+ .getElementById("billCustomer")
+ .value
+ .trim();
 
 
  const mobile=
- document.getElementById(
-  "billMobile"
- ).value.trim();
+
+ document
+ .getElementById("billMobile")
+ .value
+ .trim();
 
 
  if(!name){
@@ -2023,23 +2927,28 @@ async function saveBill(
 
 
  const payment=
- document.getElementById(
-  "payment"
- ).value;
+
+ document
+ .getElementById("payment")
+ .value;
 
 
  const received=
+
  Number(
-  document.getElementById(
-   "received"
-  ).value
+
+  document
+  .getElementById("received")
+  .value
+
  )||0;
 
 
  const billNo=
- document.getElementById(
-  "billNo"
- ).value;
+
+ document
+ .getElementById("billNo")
+ .value;
 
 
  status(
@@ -2050,157 +2959,234 @@ async function saveBill(
  let customerId=null;
 
 
+
  const customerSearch=
+
  await db
+
  .from("customers")
+
  .select("id")
+
  .eq("mobile",mobile)
+
  .limit(1);
 
 
+
  if(
-  customerSearch.data &&
+
+  customerSearch.data&&
+
   customerSearch.data.length
+
  ){
 
+
   customerId=
-   customerSearch.data[0].id;
+
+  customerSearch
+  .data[0]
+  .id;
+
 
  }else{
 
+
   const newCustomer=
-   await db
-   .from("customers")
-   .insert({
 
-    customer_name:name,
+  await db
 
-    mobile:mobile,
+  .from("customers")
 
-    gender:
-     document.getElementById(
-      "billGender"
-     ).value
+  .insert({
 
-   })
-   .select()
-   .single();
+
+   customer_name:name,
+
+
+   mobile:mobile,
+
+
+   gender:
+
+   document
+   .getElementById("billGender")
+   .value
+
+
+  })
+
+  .select()
+
+  .single();
+
 
 
   if(newCustomer.error){
 
+
    alert(
+
     "Customer save failed: "+
+
     newCustomer.error.message
+
    );
+
 
    status(
     "Customer save failed"
    );
 
+
    return;
 
   }
 
+
   customerId=
-   newCustomer.data.id;
+
+  newCustomer.data.id;
+
 
  }
 
 
+
  const billResult=
+
  await db
+
  .from("bills")
+
  .insert({
+
 
   bill_no:billNo,
 
+
   customer_id:
-   customerId,
+  customerId,
+
 
   customer_name:
-   name,
+  name,
+
 
   mobile:
-   mobile,
+  mobile,
+
 
   subtotal:
-   totals.subtotal,
+  totals.subtotal,
+
 
   discount:
-   totals.discount,
+  totals.discount,
+
 
   gst:
-   totals.gst,
+  totals.gst,
+
 
   grand_total:
-   totals.net,
+  totals.net,
+
 
   payment_mode:
-   payment
+  payment
+
 
  })
+
  .select()
+
  .single();
+
 
 
  if(billResult.error){
 
+
   alert(
+
    "Bill save failed: "+
+
    billResult.error.message
+
   );
+
 
   status(
    "Bill save failed"
   );
 
+
   return;
 
  }
 
 
+
  const items=
+
  billItems.map(
  item=>({
 
+
   bill_id:
-   billResult.data.id,
+  billResult.data.id,
+
 
   service_id:
-   item.service_id,
+  item.service_id,
+
 
   service_name:
-   item.service_name,
+  item.service_name,
+
 
   category:
-   item.category,
+  item.category,
+
 
   qty:
-   item.qty,
+  item.qty,
+
 
   rate:
-   item.rate,
+  item.rate,
+
 
   amount:
-   item.qty*
-   item.rate
+  item.qty*
+  item.rate
+
 
  })
  );
 
 
+
  const itemResult=
+
  await db
+
  .from("bill_items")
+
  .insert(items);
+
 
 
  if(itemResult.error){
 
   alert(
+
    "Bill items save failed: "+
+
    itemResult.error.message
+
   );
 
   return;
@@ -2208,26 +3194,45 @@ async function saveBill(
  }
 
 
+
  lastSavedBill={
+
+
   ...billResult.data,
+
+
   received:received,
+
+
   items:[...billItems]
+
+
  };
 
 
+
  status(
+
   "Bill saved: "+
   billNo
+
  );
+
 
 
  alert(
+
   "Bill saved successfully!\n\n"+
+
   "Bill No: "+
   billNo+
+
   "\nAmount: ₹"+
+
   totals.net.toFixed(2)
+
  );
+
 
 
  if(printAfter){
@@ -2239,9 +3244,10 @@ async function saveBill(
 }
 
 
-/* =====================================================
-   SAVE AND PRINT
-===================================================== */
+
+/* ===============================
+   SAVE & PRINT
+================================ */
 
 function saveAndPrint(){
 
@@ -2250,9 +3256,10 @@ function saveAndPrint(){
 }
 
 
-/* =====================================================
-   PRINT LAST BILL
-===================================================== */
+
+/* ===============================
+   PRINT
+================================ */
 
 function printLastBill(){
 
@@ -2272,9 +3279,12 @@ function printLastBill(){
 
 
  const rows=
+
  b.items
+
  .map(
  (item,i)=>`
+
 
   <tr>
 
@@ -2282,27 +3292,26 @@ function printLastBill(){
     ${i+1}
    </td>
 
-   <td>
-    ${esc(
-     item.service_name
-    )}
-   </td>
 
    <td>
-    ${esc(
-     item.category
-    )}
+    ${esc(item.service_name)}
    </td>
+
+
+   <td>
+    ${esc(item.category)}
+   </td>
+
 
    <td>
     ${item.qty}
    </td>
 
+
    <td>
-    ₹${Number(
-     item.rate
-    ).toFixed(2)}
+    ₹${Number(item.rate).toFixed(2)}
    </td>
+
 
    <td>
     ₹${(
@@ -2313,258 +3322,328 @@ function printLastBill(){
 
   </tr>
 
+
  `
  )
+
  .join("");
 
 
- document.getElementById(
-  "printWindow"
- ).innerHTML=`
 
-  <div style="
-   max-width:760px;
-   margin:auto;
-   padding:25px;
-   font-family:Arial;
-   color:#000;
-  ">
-
-   <div style="
-    text-align:center;
-    border-bottom:2px solid #000;
-    padding-bottom:12px;
-   ">
-
-    <h1 style="margin:0">
-     DIVA SALON & ACADEMY
-    </h1>
-
-    <p style="margin:5px">
-     BARHI CHOWK, JHUMRI TILAIYA ROAD
-    </p>
-
-    <p style="margin:5px">
-     BESIDE FASHION WORLD MALL
-    </p>
-
-    <p style="margin:5px">
-     PIN CODE - 825405
-    </p>
-
-    <p style="margin:5px">
-     Mob: 9122119941 |
-     WhatsApp: 9102469965
-    </p>
-
-   </div>
+ document
+ .getElementById("printWindow")
+ .innerHTML=`
 
 
-   <br>
+<div style="
+max-width:760px;
+margin:auto;
+padding:25px;
+font-family:Arial;
+color:#000;
+">
 
 
-   <table style="
-    width:100%;
-    border-collapse:collapse;
-   ">
-
-    <tr>
-
-     <td>
-      <b>Bill No:</b>
-     </td>
-
-     <td>
-      ${esc(b.bill_no)}
-     </td>
-
-     <td>
-      <b>Date:</b>
-     </td>
-
-     <td>
-      ${new Date(
-       b.created_at
-      ).toLocaleString("en-IN")}
-     </td>
-
-    </tr>
+<div style="
+text-align:center;
+border-bottom:2px solid #000;
+padding-bottom:12px;
+">
 
 
-    <tr>
+<h1 style="margin:0">
 
-     <td>
-      <b>Customer:</b>
-     </td>
+DIVA SALON & ACADEMY
 
-     <td>
-      ${esc(
-       b.customer_name
-      )}
-     </td>
-
-     <td>
-      <b>Mobile:</b>
-     </td>
-
-     <td>
-      ${esc(
-       b.mobile||""
-      )}
-     </td>
-
-    </tr>
-
-   </table>
+</h1>
 
 
-   <br>
+<p style="margin:5px">
+
+BARHI CHOWK, JHUMRI TILAIYA ROAD
+
+</p>
 
 
-   <table style="
-    width:100%;
-    border-collapse:collapse;
-   ">
+<p style="margin:5px">
 
-    <thead>
+BESIDE FASHION WORLD MALL
 
-     <tr>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       #
-      </th>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       Service
-      </th>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       Category
-      </th>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       Qty
-      </th>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       Rate
-      </th>
-
-      <th style="
-       border:1px solid #777;
-       padding:7px
-      ">
-       Amount
-      </th>
-
-     </tr>
-
-    </thead>
-
-    <tbody>
-     ${rows}
-    </tbody>
-
-   </table>
+</p>
 
 
-   <div style="
-    width:330px;
-    margin-left:auto;
-    margin-top:20px;
-   ">
+<p style="margin:5px">
 
-    <p>
-     <b>Subtotal:</b>
-     ₹${Number(
-      b.subtotal
-     ).toFixed(2)}
-    </p>
+PIN CODE - 825405
 
-    <p>
-     <b>Discount:</b>
-     ₹${Number(
-      b.discount
-     ).toFixed(2)}
-    </p>
-
-    <p>
-     <b>GST:</b>
-     ₹${Number(
-      b.gst
-     ).toFixed(2)}
-    </p>
-
-    <h2 style="
-     border-top:2px solid #000;
-     padding-top:10px;
-    ">
-
-     NET TOTAL:
-     ₹${Number(
-      b.grand_total
-     ).toFixed(2)}
-
-    </h2>
-
-    <p>
-     <b>Payment:</b>
-     ${esc(
-      b.payment_mode
-     )}
-    </p>
-
-    <p>
-     <b>Received:</b>
-     ₹${Number(
-      b.received||0
-     ).toFixed(2)}
-    </p>
-
-    <p>
-     <b>Due:</b>
-     ₹${Math.max(
-      0,
-      Number(b.grand_total)-
-      Number(b.received||0)
-     ).toFixed(2)}
-    </p>
-
-   </div>
+</p>
 
 
-   <br>
+<p style="margin:5px">
+
+Mob: 9122119941 |
+WhatsApp: 9102469965
+
+</p>
 
 
-   <div style="
-    text-align:center;
-    border-top:1px dashed #777;
-    padding-top:15px;
-   ">
+</div>
 
-    <b>
-     Thank You! Visit Again.
-    </b>
 
-   </div>
+<br>
 
-  </div>
- `;
+
+<table style="
+width:100%;
+border-collapse:collapse;
+">
+
+
+<tr>
+
+<td>
+<b>Bill No:</b>
+</td>
+
+<td>
+${esc(b.bill_no)}
+</td>
+
+<td>
+<b>Date:</b>
+</td>
+
+<td>
+
+${new Date(
+b.created_at
+).toLocaleString("en-IN")}
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<b>Customer:</b>
+</td>
+
+<td>
+${esc(b.customer_name)}
+</td>
+
+<td>
+<b>Mobile:</b>
+</td>
+
+<td>
+${esc(b.mobile||"")}
+</td>
+
+</tr>
+
+
+</table>
+
+
+<br>
+
+
+<table style="
+width:100%;
+border-collapse:collapse;
+">
+
+
+<thead>
+
+<tr>
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+#
+</th>
+
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+Service
+
+</th>
+
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+Category
+
+</th>
+
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+Qty
+
+</th>
+
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+Rate
+
+</th>
+
+
+<th style="
+border:1px solid #777;
+padding:7px">
+
+Amount
+
+</th>
+
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${rows}
+
+</tbody>
+
+
+</table>
+
+
+<div style="
+width:330px;
+margin-left:auto;
+margin-top:20px;
+">
+
+
+<p>
+
+<b>Subtotal:</b>
+
+₹${Number(
+b.subtotal
+).toFixed(2)}
+
+</p>
+
+
+<p>
+
+<b>Discount:</b>
+
+₹${Number(
+b.discount
+).toFixed(2)}
+
+</p>
+
+
+<p>
+
+<b>GST:</b>
+
+₹${Number(
+b.gst
+).toFixed(2)}
+
+</p>
+
+
+<h2 style="
+border-top:2px solid #000;
+padding-top:10px;
+">
+
+NET TOTAL:
+
+₹${Number(
+b.grand_total
+).toFixed(2)}
+
+</h2>
+
+
+<p>
+
+<b>Payment:</b>
+
+${esc(b.payment_mode)}
+
+</p>
+
+
+<p>
+
+<b>Received:</b>
+
+₹${Number(
+b.received||0
+).toFixed(2)}
+
+</p>
+
+
+<p>
+
+<b>Due:</b>
+
+₹${Math.max(
+
+0,
+
+Number(b.grand_total)-
+Number(b.received||0)
+
+).toFixed(2)}
+
+</p>
+
+
+</div>
+
+
+<br>
+
+
+<div style="
+text-align:center;
+border-top:1px dashed #777;
+padding-top:15px;
+">
+
+<b>
+
+Thank You! Visit Again.
+
+</b>
+
+</div>
+
+
+</div>
+
+
+`;
 
 
  window.print();
@@ -2572,49 +3651,53 @@ function printLastBill(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    NEW BILL
-===================================================== */
+================================ */
 
 function newBill(){
 
  billItems=[];
 
+
  lastSavedBill=null;
 
 
- document.getElementById(
-  "billCustomer"
- ).value="";
+ document
+ .getElementById("billCustomer")
+ .value="";
 
 
- document.getElementById(
-  "billMobile"
- ).value="";
+ document
+ .getElementById("billMobile")
+ .value="";
 
 
- document.getElementById(
-  "discount"
- ).value=0;
+ document
+ .getElementById("discount")
+ .value=0;
 
 
- document.getElementById(
-  "gstRate"
- ).value=0;
+ document
+ .getElementById("gstRate")
+ .value=0;
 
 
- document.getElementById(
-  "received"
- ).value=0;
+ document
+ .getElementById("received")
+ .value=0;
 
 
- document.getElementById(
-  "billNo"
- ).value=
+ document
+ .getElementById("billNo")
+ .value=
+
  generateBillNo();
 
 
  renderBillItems();
+
 
  calculate();
 
@@ -2626,28 +3709,35 @@ function newBill(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    SAVE CUSTOMER
-===================================================== */
+================================ */
 
 async function saveCustomer(){
 
+
  const name=
- document.getElementById(
-  "customerName"
- ).value.trim();
+
+ document
+ .getElementById("customerName")
+ .value
+ .trim();
 
 
  const mobile=
- document.getElementById(
-  "customerMobile"
- ).value.trim();
+
+ document
+ .getElementById("customerMobile")
+ .value
+ .trim();
 
 
  const gender=
- document.getElementById(
-  "customerGender"
- ).value;
+
+ document
+ .getElementById("customerGender")
+ .value;
 
 
  if(!name){
@@ -2661,25 +3751,37 @@ async function saveCustomer(){
  }
 
 
+
  const result=
+
  await db
+
  .from("customers")
+
  .insert({
+
 
   customer_name:name,
 
+
   mobile:mobile,
+
 
   gender:gender
 
+
  });
+
 
 
  if(result.error){
 
   alert(
+
    "Customer save failed: "+
+
    result.error.message
+
   );
 
   return;
@@ -2687,19 +3789,20 @@ async function saveCustomer(){
  }
 
 
+
  alert(
   "Customer added successfully."
  );
 
 
- document.getElementById(
-  "customerName"
- ).value="";
+ document
+ .getElementById("customerName")
+ .value="";
 
 
- document.getElementById(
-  "customerMobile"
- ).value="";
+ document
+ .getElementById("customerMobile")
+ .value="";
 
 
  loadCustomers();
@@ -2707,38 +3810,56 @@ async function saveCustomer(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    LOAD CUSTOMERS
-===================================================== */
+================================ */
 
 async function loadCustomers(){
 
+
  const result=
+
  await db
+
  .from("customers")
+
  .select("*")
+
  .order(
+
   "created_at",
-  {ascending:false}
+
+  {
+   ascending:false
+  }
+
  );
+
 
 
  if(result.error){
 
-  document.getElementById(
-   "customerList"
-  ).innerHTML=
-   "<p>"+
-   esc(result.error.message)+
-   "</p>";
+
+  document
+  .getElementById("customerList")
+  .innerHTML=
+
+  "<p>"+
+
+  esc(result.error.message)+
+
+  "</p>";
+
 
   return;
 
  }
 
 
+
  customers=
-  result.data||[];
+ result.data||[];
 
 
  renderCustomers(
@@ -2748,113 +3869,130 @@ async function loadCustomers(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    RENDER CUSTOMERS
-===================================================== */
+================================ */
 
 function renderCustomers(list){
 
+
  if(!list.length){
 
-  document.getElementById(
-   "customerList"
-  ).innerHTML=
-   "<p class='small'>"+
-   "No customers found."+
-   "</p>";
+
+  document
+  .getElementById("customerList")
+  .innerHTML=
+
+  "<p class='small'>No customers found.</p>";
+
 
   return;
 
  }
 
 
- document.getElementById(
-  "customerList"
- ).innerHTML=`
 
- <table>
-
-  <thead>
-
-   <tr>
-
-    <th>
-     Name
-    </th>
-
-    <th>
-     Mobile
-    </th>
-
-    <th>
-     Gender
-    </th>
-
-    <th>
-     Date
-    </th>
-
-   </tr>
-
-  </thead>
+ document
+ .getElementById("customerList")
+ .innerHTML=`
 
 
-  <tbody>
+<table>
 
-   ${list.map(
-    c=>`
 
-    <tr>
+<thead>
 
-     <td>
-      ${esc(
-       c.customer_name
-      )}
-     </td>
+<tr>
 
-     <td>
-      ${esc(
-       c.mobile||""
-      )}
-     </td>
+<th>
+Name
+</th>
 
-     <td>
-      ${esc(
-       c.gender||""
-      )}
-     </td>
+<th>
+Mobile
+</th>
 
-     <td>
-      ${new Date(
-       c.created_at
-      ).toLocaleDateString(
-       "en-IN"
-      )}
-     </td>
+<th>
+Gender
+</th>
 
-    </tr>
+<th>
+Date
+</th>
 
-   `
-   ).join("")}
+</tr>
 
-  </tbody>
+</thead>
 
- </table>
 
- `;
+<tbody>
+
+
+${list.map(
+c=>`
+
+
+<tr>
+
+
+<td>
+
+${esc(c.customer_name)}
+
+</td>
+
+
+<td>
+
+${esc(c.mobile||"")}
+
+</td>
+
+
+<td>
+
+${esc(c.gender||"")}
+
+</td>
+
+
+<td>
+
+${new Date(
+c.created_at
+).toLocaleDateString("en-IN")}
+
+</td>
+
+
+</tr>
+
+
+`
+).join("")}
+
+
+</tbody>
+
+
+</table>
+
+
+`;
 
 }
 
 
-/* =====================================================
-   SEARCH CUSTOMERS
-===================================================== */
+
+/* ===============================
+   SEARCH CUSTOMER
+================================ */
 
 function searchCustomers(value){
 
  const q=
-  value
-  .toLowerCase();
+ value.toLowerCase();
 
 
  renderCustomers(
@@ -2863,12 +4001,17 @@ function searchCustomers(value){
    c=>
 
    (c.customer_name||"")
+
    .toLowerCase()
+
    .includes(q)
+
 
    ||
 
+
    (c.mobile||"")
+
    .includes(q)
 
   )
@@ -2878,30 +4021,39 @@ function searchCustomers(value){
 }
 
 
-/* =====================================================
+
+/* ===============================
    SAVE SERVICE
-===================================================== */
+================================ */
 
 async function saveService(){
 
+
  const name=
- document.getElementById(
-  "newServiceName"
- ).value.trim();
+
+ document
+ .getElementById("newServiceName")
+ .value
+ .trim();
 
 
  const category=
- document.getElementById(
-  "newServiceCategory"
- ).value;
+
+ document
+ .getElementById("newServiceCategory")
+ .value;
 
 
  const rate=
+
  Number(
-  document.getElementById(
-   "newServiceRate"
-  ).value
+
+  document
+  .getElementById("newServiceRate")
+  .value
+
  )||0;
+
 
 
  if(!name){
@@ -2915,32 +4067,46 @@ async function saveService(){
  }
 
 
+
  const result=
+
  await db
+
  .from("services")
+
  .insert({
+
 
   service_name:name,
 
+
   category:category,
+
 
   rate:rate,
 
+
   active:true
 
+
  });
+
 
 
  if(result.error){
 
   alert(
+
    "Service save failed: "+
+
    result.error.message
+
   );
 
   return;
 
  }
+
 
 
  alert(
@@ -2948,14 +4114,14 @@ async function saveService(){
  );
 
 
- document.getElementById(
-  "newServiceName"
- ).value="";
+ document
+ .getElementById("newServiceName")
+ .value="";
 
 
- document.getElementById(
-  "newServiceRate"
- ).value="";
+ document
+ .getElementById("newServiceRate")
+ .value="";
 
 
  loadServices();
@@ -2963,259 +4129,326 @@ async function saveService(){
 }
 
 
-/* =====================================================
+
+/* ===============================
    SERVICE LIST
-===================================================== */
+================================ */
 
 function renderServiceList(){
 
+
  if(!services.length){
 
-  document.getElementById(
-   "serviceList"
-  ).innerHTML=
-   "<p class='small'>"+
-   "No services found."+
-   "</p>";
+
+  document
+  .getElementById("serviceList")
+  .innerHTML=
+
+  "<p class='small'>No services found.</p>";
+
 
   return;
 
  }
 
 
- document.getElementById(
-  "serviceList"
- ).innerHTML=`
 
- <table>
-
-  <thead>
-
-   <tr>
-
-    <th>
-     Service
-    </th>
-
-    <th>
-     Category
-    </th>
-
-    <th>
-     Rate
-    </th>
-
-   </tr>
-
-  </thead>
+ document
+ .getElementById("serviceList")
+ .innerHTML=`
 
 
-  <tbody>
+<table>
 
-   ${services.map(
-    s=>`
 
-    <tr>
+<thead>
 
-     <td>
-      ${esc(
-       s.service_name
-      )}
-     </td>
+<tr>
 
-     <td>
+<th>
+Service
+</th>
 
-      <span class="badge">
+<th>
+Category
+</th>
 
-       ${esc(
-        s.category
-       )}
+<th>
+Rate
+</th>
 
-      </span>
+</tr>
 
-     </td>
+</thead>
 
-     <td>
-      ₹${Number(
-       s.rate||0
-      ).toFixed(2)}
-     </td>
 
-    </tr>
+<tbody>
 
-   `
-   ).join("")}
 
-  </tbody>
+${services.map(
+s=>`
 
- </table>
 
- `;
+<tr>
+
+
+<td>
+
+${esc(s.service_name)}
+
+</td>
+
+
+<td>
+
+<span class="badge">
+
+${esc(s.category)}
+
+</span>
+
+</td>
+
+
+<td>
+
+₹${Number(
+s.rate||0
+).toFixed(2)}
+
+</td>
+
+
+</tr>
+
+
+`
+).join("")}
+
+
+</tbody>
+
+
+</table>
+
+
+`;
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    BILL HISTORY
-===================================================== */
+================================ */
 
 async function loadBills(){
 
+
  const result=
+
  await db
+
  .from("bills")
+
  .select("*")
+
  .order(
+
   "created_at",
-  {ascending:false}
+
+  {
+   ascending:false
+  }
+
  )
+
  .limit(200);
+
 
 
  if(result.error){
 
-  document.getElementById(
-   "billHistory"
-  ).innerHTML=
-   "<p>"+
-   esc(result.error.message)+
-   "</p>";
+
+  document
+  .getElementById("billHistory")
+  .innerHTML=
+
+  "<p>"+
+
+  esc(result.error.message)+
+
+  "</p>";
+
 
   return;
 
  }
 
 
+
  const bills=
-  result.data||[];
+ result.data||[];
+
 
 
  if(!bills.length){
 
-  document.getElementById(
-   "billHistory"
-  ).innerHTML=
-   "<p class='small'>"+
-   "No bills found."+
-   "</p>";
+
+  document
+  .getElementById("billHistory")
+  .innerHTML=
+
+  "<p class='small'>No bills found.</p>";
+
 
   return;
 
  }
 
 
- document.getElementById(
-  "billHistory"
- ).innerHTML=`
 
- <table>
-
-  <thead>
-
-   <tr>
-
-    <th>
-     Bill No
-    </th>
-
-    <th>
-     Customer
-    </th>
-
-    <th>
-     Mobile
-    </th>
-
-    <th>
-     Total
-    </th>
-
-    <th>
-     Payment
-    </th>
-
-    <th>
-     Date
-    </th>
-
-   </tr>
-
-  </thead>
+ document
+ .getElementById("billHistory")
+ .innerHTML=`
 
 
-  <tbody>
+<table>
 
-   ${bills.map(
-    b=>`
 
-    <tr>
+<thead>
 
-     <td>
-      ${esc(
-       b.bill_no
-      )}
-     </td>
+<tr>
 
-     <td>
-      ${esc(
-       b.customer_name||""
-      )}
-     </td>
+<th>
+Bill No
+</th>
 
-     <td>
-      ${esc(
-       b.mobile||""
-      )}
-     </td>
+<th>
+Customer
+</th>
 
-     <td>
-      ₹${Number(
-       b.grand_total||0
-      ).toFixed(2)}
-     </td>
+<th>
+Mobile
+</th>
 
-     <td>
-      ${esc(
-       b.payment_mode||""
-      )}
-     </td>
+<th>
+Total
+</th>
 
-     <td>
-      ${new Date(
-       b.created_at
-      ).toLocaleString(
-       "en-IN"
-      )}
-     </td>
+<th>
+Payment
+</th>
 
-    </tr>
+<th>
+Date
+</th>
 
-   `
-   ).join("")}
+</tr>
 
-  </tbody>
+</thead>
 
- </table>
 
- `;
+<tbody>
+
+
+${bills.map(
+b=>`
+
+
+<tr>
+
+
+<td>
+
+${esc(b.bill_no)}
+
+</td>
+
+
+<td>
+
+${esc(b.customer_name||"")}
+
+</td>
+
+
+<td>
+
+${esc(b.mobile||"")}
+
+</td>
+
+
+<td>
+
+₹${Number(
+b.grand_total||0
+).toFixed(2)}
+
+</td>
+
+
+<td>
+
+${esc(b.payment_mode||"")}
+
+</td>
+
+
+<td>
+
+${new Date(
+b.created_at
+).toLocaleString("en-IN")}
+
+</td>
+
+
+</tr>
+
+
+`
+).join("")}
+
+
+</tbody>
+
+
+</table>
+
+
+`;
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    REPORT
-===================================================== */
+================================ */
 
 async function loadReport(){
 
+
  const result=
+
  await db
+
  .from("bills")
+
  .select("*")
+
  .order(
+
   "created_at",
-  {ascending:false}
+
+  {
+   ascending:false
+  }
+
  );
+
 
 
  if(result.error){
@@ -3229,155 +4462,203 @@ async function loadReport(){
  }
 
 
+
  const bills=
-  result.data||[];
+ result.data||[];
+
 
 
  let totalSales=0;
+
  let totalDiscount=0;
+
  let todaySales=0;
 
 
+
  const today=
-  new Date()
-  .toISOString()
-  .slice(0,10);
+
+ new Date()
+
+ .toISOString()
+
+ .slice(0,10);
+
 
 
  bills.forEach(b=>{
 
+
   totalSales+=
+
+  Number(
+   b.grand_total
+  )||0;
+
+
+
+  totalDiscount+=
+
+  Number(
+   b.discount
+  )||0;
+
+
+
+  if(
+
+   String(
+    b.created_at
+   ).slice(0,10)
+
+   ===
+
+   today
+
+  ){
+
+
+   todaySales+=
+
    Number(
     b.grand_total
    )||0;
 
 
-  totalDiscount+=
-   Number(
-    b.discount
-   )||0;
-
-
-  if(
-   String(
-    b.created_at
-   ).slice(0,10)
-   ===
-   today
-  ){
-
-   todaySales+=
-    Number(
-     b.grand_total
-    )||0;
-
   }
+
 
  });
 
 
- document.getElementById(
-  "reportBills"
- ).innerText=
-  bills.length;
+
+ document
+ .getElementById("reportBills")
+ .innerText=
+
+ bills.length;
 
 
- document.getElementById(
-  "reportSales"
- ).innerText=
-  totalSales.toFixed(2);
+
+ document
+ .getElementById("reportSales")
+ .innerText=
+
+ totalSales.toFixed(2);
 
 
- document.getElementById(
-  "reportDiscount"
- ).innerText=
-  totalDiscount.toFixed(2);
+
+ document
+ .getElementById("reportDiscount")
+ .innerText=
+
+ totalDiscount.toFixed(2);
 
 
- document.getElementById(
-  "todaySales"
- ).innerText=
-  todaySales.toFixed(2);
+
+ document
+ .getElementById("todaySales")
+ .innerText=
+
+ todaySales.toFixed(2);
 
 
- document.getElementById(
-  "recentSales"
- ).innerHTML=
+
+ document
+ .getElementById("recentSales")
+ .innerHTML=
+
 
  bills
+
  .slice(0,20)
+
  .map(
-  b=>`
+ b=>`
 
-  <div style="
-   padding:10px;
-   border-bottom:1px solid #29220f;
-  ">
 
-   <b style="
-    color:#d4af37
-   ">
-    ${esc(
-     b.bill_no
-    )}
-   </b>
+<div style="
+padding:10px;
+border-bottom:1px solid #29220f;
+">
 
-   &nbsp;
 
-   ${esc(
-    b.customer_name||""
-   )}
+<b style="
+color:#d4af37">
 
-   <span style="
-    float:right
-   ">
+${esc(b.bill_no)}
 
-    ₹${Number(
-     b.grand_total||0
-    ).toFixed(2)}
+</b>
 
-   </span>
 
-  </div>
+&nbsp;
 
- `
+
+${esc(
+b.customer_name||""
+)}
+
+
+<span style="
+float:right">
+
+
+₹${Number(
+b.grand_total||0
+).toFixed(2)}
+
+
+</span>
+
+
+</div>
+
+
+`
  )
+
  .join("")
+
 
  ||
 
- "<p class='small'>"+
- "No sales."+
- "</p>";
+
+ "<p class='small'>No sales.</p>";
 
 }
 
 
-/* =====================================================
+
+/* ===============================
    HTML ESCAPE
-===================================================== */
+================================ */
 
 function esc(value){
 
  return String(
   value??""
  )
+
  .replace(
   /&/g,
   "&amp;"
  )
+
  .replace(
   /</g,
   "&lt;"
  )
+
  .replace(
   />/g,
   "&gt;"
  )
+
  .replace(
   /"/g,
   "&quot;"
  )
+
  .replace(
   /'/g,
   "&#039;"
@@ -3386,54 +4667,71 @@ function esc(value){
 }
 
 
-/* =====================================================
+
+/* ===============================
    PWA INSTALL
-===================================================== */
+================================ */
 
 let deferredInstallPrompt=null;
 
 
+
 window.addEventListener(
+
  "beforeinstallprompt",
+
  function(event){
+
 
   event.preventDefault();
 
+
   deferredInstallPrompt=
-   event;
+  event;
+
 
   const button=
-   document.getElementById(
-    "installBtn"
-   );
+
+  document
+  .getElementById("installBtn");
+
 
   if(button){
 
    button.style.display=
-    "block";
+   "block";
 
   }
+
 
  }
 );
 
 
+
 async function installApp(){
+
 
  if(!deferredInstallPrompt){
 
+
   alert(
+
    "Chrome menu (⋮) open karke "+
    "'Install DIVA SALON & ACADEMY' "+
    "select karein."
+
   );
+
 
   return;
 
  }
 
 
+
  deferredInstallPrompt.prompt();
+
 
 
  try{
@@ -3447,62 +4745,78 @@ async function installApp(){
  }
 
 
+
  deferredInstallPrompt=null;
 
 
+
  const button=
-  document.getElementById(
-   "installBtn"
-  );
+
+ document
+ .getElementById("installBtn");
+
 
 
  if(button){
 
   button.style.display=
-   "none";
+  "none";
 
  }
 
 }
 
 
+
 window.addEventListener(
+
  "appinstalled",
+
  function(){
 
+
   const button=
-   document.getElementById(
-    "installBtn"
-   );
+
+  document
+  .getElementById("installBtn");
+
 
   if(button){
 
    button.style.display=
-    "none";
+   "none";
 
   }
+
 
  }
 );
 
 
-/* =====================================================
+
+/* ===============================
    SERVICE WORKER
-===================================================== */
+================================ */
 
 if(
  "serviceWorker" in navigator
 ){
 
+
  window.addEventListener(
+
   "load",
+
   function(){
 
-   navigator.serviceWorker
-   .register(
-    "./sw.js"
-   )
+
+   navigator
+   .serviceWorker
+
+   .register("./sw.js")
+
    .then(
+
     function(){
 
      console.log(
@@ -3510,42 +4824,59 @@ if(
      );
 
     }
+
    )
+
    .catch(
+
     function(error){
 
      console.log(
+
       "Service Worker Error:",
+
       error
+
      );
 
     }
+
    );
 
+
   }
+
  );
+
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
 
-document.getElementById(
- "billNo"
-).value=
- generateBillNo();
+/* ===============================
+   START
+================================ */
+
+document
+.getElementById("billNo")
+.value=
+
+generateBillNo();
+
 
 
 loadServices();
+
 
 
 status(
  "Ready"
 );
 
+
 </script>
 
+
 </body>
+
 </html>
