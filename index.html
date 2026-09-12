@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Diva Salon & Academy</title>
 
 <meta name="theme-color" content="#080808">
-
 <meta name="mobile-web-app-capable" content="yes">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
-
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 <link rel="manifest" href="manifest.json">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
-
-/* ===============================
-   GLOBAL
-================================ */
 
 *{
  box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
  margin:0;
  padding:0;
  width:100%;
@@ -47,687 +36,372 @@ body{
 }
 
 :root{
-
  --gold:#d4af37;
-
  --gold2:#f4d76b;
-
  --black:#080808;
-
  --panel:#111;
-
  --line:#3c3113;
-
 }
 
-
-/* ===============================
-   HEADER
-================================ */
+/* HEADER */
 
 .header{
-
  min-height:72px;
-
  background:#050505;
-
  border-bottom:2px solid var(--gold);
-
  display:flex;
-
  align-items:center;
-
  justify-content:space-between;
-
  padding:8px 22px;
-
  position:sticky;
-
  top:0;
-
  z-index:5;
-
 }
 
-
-/* ===============================
-   DIVA LOGO
-================================ */
+/* LOGO */
 
 .logo{
-
  display:flex;
-
  align-items:center;
-
 }
-
 
 .diva-logo{
-
  display:flex;
-
  flex-direction:column;
-
  align-items:center;
-
  justify-content:center;
-
  min-width:230px;
-
  padding:2px 10px;
-
  line-height:1;
-
 }
-
 
 .logo-crown{
-
  color:#d4af37;
-
  font-size:20px;
-
  margin-bottom:1px;
-
  text-shadow:
-
-  0 0 5px #d4af37,
-
-  0 0 12px #6d5010;
-
+ 0 0 5px #d4af37,
+ 0 0 12px #6d5010;
 }
-
 
 .logo-name{
-
  font-family:Georgia,"Times New Roman",serif;
-
  font-size:28px;
-
  font-weight:bold;
-
  letter-spacing:5px;
-
  color:#d4af37;
-
  text-shadow:
-
-  0 1px 0 #fff1a8,
-
-  0 0 8px #d4af37,
-
-  0 0 18px #6d5010;
-
+ 0 1px 0 #fff1a8,
+ 0 0 8px #d4af37,
+ 0 0 18px #6d5010;
 }
-
 
 .logo-sub{
-
  margin-top:5px;
-
  color:#f4d76b;
-
  font-size:9px;
-
  letter-spacing:3px;
-
  font-weight:bold;
-
 }
-
 
 .header-right{
-
  display:flex;
-
  align-items:center;
-
  gap:10px;
-
 }
-
 
 .clock{
-
  color:#aaa;
-
  font-size:13px;
-
 }
-
 
 .install-btn{
-
  display:none;
-
  background:var(--gold);
-
  color:#000;
-
  border:0;
-
  border-radius:6px;
-
  padding:9px 12px;
-
  font-weight:bold;
-
  cursor:pointer;
-
 }
-
 
 .install-btn:hover{
-
  background:var(--gold2);
-
 }
 
-
-/* ===============================
-   LAYOUT
-================================ */
+/* LAYOUT */
 
 .layout{
-
  display:flex;
-
  min-height:calc(100vh - 72px);
-
 }
-
 
 .sidebar{
-
  width:210px;
-
  background:#050505;
-
  border-right:1px solid var(--line);
-
  padding:14px 10px;
-
 }
-
 
 .menu{
-
  width:100%;
-
  text-align:left;
-
  margin-bottom:7px;
-
  background:#101010;
-
  color:#ccc;
-
  border:1px solid #252015;
-
  padding:12px;
-
  border-radius:6px;
-
  cursor:pointer;
-
 }
-
 
 .menu:hover,
 .menu.active{
-
  color:#000;
-
  background:var(--gold);
-
 }
-
 
 .main{
-
  flex:1;
-
  padding:16px;
-
  overflow:auto;
-
 }
-
 
 .page{
-
  display:none;
-
 }
-
 
 .page.active{
-
  display:block;
-
 }
 
-
-/* ===============================
-   TOP BAR
-================================ */
+/* TOP BAR */
 
 .topbar{
-
  display:flex;
-
  justify-content:space-between;
-
  align-items:center;
-
  gap:10px;
-
  margin-bottom:12px;
-
 }
-
 
 .title{
-
  color:var(--gold2);
-
  font-size:21px;
-
  font-weight:bold;
-
 }
-
 
 .status{
-
  padding:9px 12px;
-
  background:#151515;
-
  border:1px solid var(--line);
-
  color:#aaa;
-
  border-radius:5px;
-
  font-size:12px;
-
 }
 
-
-/* ===============================
-   PANEL
-================================ */
+/* PANEL */
 
 .panel{
-
  background:var(--panel);
-
  border:1px solid var(--line);
-
  border-radius:7px;
-
  margin-bottom:14px;
-
 }
-
 
 .panel-head{
-
  padding:11px 14px;
-
  background:#0c0c0c;
-
  border-bottom:1px solid var(--line);
-
  color:var(--gold2);
-
  font-weight:bold;
-
 }
-
 
 .panel-body{
-
  padding:14px;
-
 }
 
-
-/* ===============================
-   FORM
-================================ */
+/* FORM */
 
 .formgrid{
-
  display:grid;
-
  grid-template-columns:repeat(4,1fr);
-
  gap:10px;
-
 }
-
 
 .field label{
-
  display:block;
-
  color:#999;
-
  font-size:11px;
-
  margin-bottom:5px;
-
 }
-
 
 input,
 select{
-
  width:100%;
-
  height:38px;
-
  background:#070707;
-
  border:1px solid #4b3d18;
-
  border-radius:5px;
-
  color:#fff;
-
  padding:0 10px;
-
  outline:none;
-
 }
-
 
 input:focus,
 select:focus{
-
  border-color:var(--gold);
-
 }
 
-
-/* ===============================
-   BUTTONS
-================================ */
+/* BUTTON */
 
 .btn{
-
  border:0;
-
  border-radius:5px;
-
  padding:10px 15px;
-
  cursor:pointer;
-
  font-weight:bold;
-
 }
-
 
 .btn:hover{
-
  opacity:.9;
-
 }
-
 
 .gold{
-
  background:var(--gold);
-
  color:#000;
-
 }
-
 
 .dark{
-
  background:#171717;
-
  border:1px solid #594719;
-
  color:var(--gold2);
-
 }
-
 
 .red{
-
  background:#8d2020;
-
  color:#fff;
-
 }
-
 
 .btnrow{
-
  display:flex;
-
  flex-wrap:wrap;
-
  gap:7px;
-
  margin-top:12px;
-
 }
 
-
-/* ===============================
-   SERVICE
-================================ */
+/* SERVICE */
 
 .servicebar{
-
  display:grid;
-
  grid-template-columns:130px 1fr 100px 80px;
-
  gap:8px;
-
  align-items:end;
-
 }
 
-
-/* ===============================
-   TABLE
-================================ */
+/* TABLE */
 
 table{
-
  width:100%;
-
  border-collapse:collapse;
-
 }
-
 
 th{
-
  background:#090909;
-
  color:var(--gold2);
-
  font-size:12px;
-
  padding:10px 7px;
-
  border-bottom:1px solid var(--gold);
-
  text-align:left;
-
 }
-
 
 td{
-
  padding:9px 7px;
-
  border-bottom:1px solid #29220f;
-
  color:#ddd;
-
  font-size:13px;
-
 }
-
 
 td input{
-
  height:30px;
-
 }
-
 
 .right{
-
  text-align:right;
-
 }
-
 
 .center{
-
  text-align:center;
-
 }
 
-
-/* ===============================
-   TOTAL
-================================ */
+/* TOTAL */
 
 .bill-total{
-
  width:420px;
-
  max-width:100%;
-
  margin-left:auto;
-
  margin-top:12px;
-
 }
-
 
 .totalrow{
-
  display:flex;
-
  justify-content:space-between;
-
  padding:7px 10px;
-
  color:#bbb;
-
 }
-
 
 .totalrow.net{
-
  border-top:1px solid var(--gold);
-
  margin-top:4px;
-
  color:var(--gold2);
-
  font-size:22px;
-
  font-weight:bold;
-
  padding-top:12px;
-
 }
 
-
-/* ===============================
-   REPORT CARDS
-================================ */
+/* REPORT */
 
 .cards{
-
  display:grid;
-
  grid-template-columns:repeat(4,1fr);
-
  gap:12px;
-
 }
-
 
 .stat{
-
  background:#111;
-
  border:1px solid var(--line);
-
  border-radius:7px;
-
  padding:18px;
-
 }
-
 
 .stat span{
-
  display:block;
-
  color:#888;
-
  font-size:12px;
-
 }
-
 
 .stat b{
-
  display:block;
-
  color:var(--gold2);
-
  font-size:25px;
-
  margin-top:8px;
-
 }
-
 
 .small{
-
  font-size:11px;
-
  color:#888;
-
 }
-
 
 .badge{
-
  padding:4px 7px;
-
  border:1px solid #5c4b1a;
-
  border-radius:20px;
-
  color:var(--gold2);
-
  font-size:10px;
-
 }
 
-
-/* ===============================
-   TABLET
-================================ */
+/* TABLET */
 
 @media(max-width:900px){
 
@@ -745,235 +419,150 @@ td input{
 
 }
 
-
-/* ===============================
-   MOBILE
-================================ */
+/* MOBILE */
 
 @media(max-width:600px){
 
  .header{
-
   height:auto;
-
   min-height:65px;
-
   padding:8px;
-
  }
 
  .diva-logo{
-
   min-width:auto;
-
   align-items:flex-start;
-
   padding:0;
-
  }
 
  .logo-crown{
-
   font-size:14px;
-
  }
 
  .logo-name{
-
   font-size:20px;
-
   letter-spacing:3px;
-
  }
 
  .logo-sub{
-
   font-size:6px;
-
   letter-spacing:2px;
-
  }
 
  .clock{
-
   display:none;
-
  }
 
  .header-right{
-
   gap:5px;
-
  }
 
  .install-btn{
-
   padding:8px 9px;
-
   font-size:10px;
-
  }
 
  .layout{
-
   display:block;
-
   min-height:calc(100vh - 65px);
-
  }
 
  .sidebar{
-
   width:100%;
-
   display:flex;
-
   overflow-x:auto;
-
   gap:5px;
-
   border-right:0;
-
   border-bottom:1px solid var(--line);
-
   padding:8px;
-
  }
 
  .menu{
-
   min-width:115px;
-
   margin:0;
-
   white-space:nowrap;
-
   text-align:center;
-
   padding:10px 8px;
-
  }
 
  .main{
-
   padding:8px;
-
  }
 
  .formgrid{
-
   grid-template-columns:1fr;
-
  }
 
  .servicebar{
-
   grid-template-columns:1fr;
-
  }
 
  .cards{
-
   grid-template-columns:1fr 1fr;
-
  }
 
  table{
-
   min-width:650px;
-
  }
 
  .panel-body{
-
   overflow-x:auto;
-
  }
 
  .bill-total{
-
   width:100%;
-
  }
 
 }
-
 
 @media(max-width:380px){
 
  .cards{
-
   grid-template-columns:1fr;
-
  }
 
  .title{
-
   font-size:18px;
-
  }
 
 }
 
-
-/* ===============================
-   PRINT
-================================ */
+/* PRINT */
 
 @media print{
 
  body{
-
   background:#fff;
-
   color:#000;
-
  }
 
  body>*:not(#printWindow){
-
   display:none!important;
-
  }
 
  #printWindow{
-
   display:block!important;
-
   position:absolute;
-
   left:0;
-
   top:0;
-
   width:100%;
-
   background:#fff;
-
   color:#000;
-
  }
 
 }
 
-
 #printWindow{
-
  display:none;
-
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-
-<!-- ===============================
-     HEADER
-================================ -->
+<!-- HEADER -->
 
 <div class="header">
 
@@ -981,22 +570,15 @@ td input{
 
   <div class="diva-logo">
 
-   <div class="logo-crown">
-    ♛
-   </div>
+   <div class="logo-crown">♛</div>
 
-   <div class="logo-name">
-    DIVA
-   </div>
+   <div class="logo-name">DIVA</div>
 
-   <div class="logo-sub">
-    SALON & ACADEMY
-   </div>
+   <div class="logo-sub">SALON & ACADEMY</div>
 
   </div>
 
  </div>
-
 
  <div class="header-right">
 
@@ -1009,189 +591,103 @@ td input{
 
   </button>
 
-
-  <div
-   class="clock"
-   id="clock">
-
-  </div>
+  <div class="clock" id="clock"></div>
 
  </div>
 
 </div>
 
-
-
 <div class="layout">
 
-
-<!-- ===============================
-     SIDEBAR
-================================ -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
  <button
-  class="menu active"
-  onclick="openPage('billing',this)">
-
-  🧾 New Bill
-
+ class="menu active"
+ onclick="openPage('billing',this)">
+ 🧾 New Bill
  </button>
 
-
  <button
-  class="menu"
-  onclick="openPage('customers',this)">
-
-  👤 Customers
-
+ class="menu"
+ onclick="openPage('customers',this)">
+ 👤 Customers
  </button>
 
-
  <button
-  class="menu"
-  onclick="openPage('services',this)">
-
-  💇 Services
-
+ class="menu"
+ onclick="openPage('services',this)">
+ 💇 Services
  </button>
 
-
  <button
-  class="menu"
-  onclick="openPage('history',this)">
-
-  📋 Bill History
-
+ class="menu"
+ onclick="openPage('history',this)">
+ 📋 Bill History
  </button>
 
-
  <button
-  class="menu"
-  onclick="openPage('reports',this)">
-
-  📊 Reports
-
+ class="menu"
+ onclick="openPage('reports',this)">
+ 📊 Reports
  </button>
 
 </aside>
 
-
-
 <main class="main">
 
+<!-- BILLING -->
 
-<!-- ===============================
-     BILLING
-================================ -->
-
-<section
- id="billing"
- class="page active">
-
+<section id="billing" class="page active">
 
 <div class="topbar">
 
  <div class="title">
-
-  NEW BILL / SALES INVOICE
-
+ NEW BILL / SALES INVOICE
  </div>
 
-
- <div
-  class="status"
-  id="status">
-
-  Connecting...
-
+ <div class="status" id="status">
+ Connecting...
  </div>
 
 </div>
 
-
-
 <div class="panel">
 
  <div class="panel-head">
-
-  CUSTOMER DETAILS
-
+ CUSTOMER DETAILS
  </div>
-
 
  <div class="panel-body">
 
   <div class="formgrid">
 
-
    <div class="field">
-
-    <label>
-     Customer Name
-    </label>
-
-    <input
-     id="billCustomer"
-     placeholder="Customer name">
-
+    <label>Customer Name</label>
+    <input id="billCustomer" placeholder="Customer name">
    </div>
 
-
-
    <div class="field">
-
-    <label>
-     Mobile Number
-    </label>
-
-    <input
-     id="billMobile"
-     placeholder="Mobile number">
-
+    <label>Mobile Number</label>
+    <input id="billMobile" placeholder="Mobile number">
    </div>
 
-
-
    <div class="field">
-
-    <label>
-     Category
-    </label>
+    <label>Category</label>
 
     <select id="billGender">
-
-     <option>
-      Ladies
-     </option>
-
-     <option>
-      Gents
-     </option>
-
-     <option>
-      Other
-     </option>
-
+     <option>Ladies</option>
+     <option>Gents</option>
+     <option>Other</option>
     </select>
 
    </div>
 
-
-
    <div class="field">
-
-    <label>
-     Bill No.
-    </label>
-
-    <input
-     id="billNo"
-     readonly>
-
+    <label>Bill No.</label>
+    <input id="billNo" readonly>
    </div>
-
 
   </div>
 
@@ -1199,104 +695,65 @@ td input{
 
 </div>
 
-
-
-<!-- ===============================
-     SERVICE ENTRY
-================================ -->
+<!-- SERVICE ENTRY -->
 
 <div class="panel">
 
-
  <div class="panel-head">
-
-  SERVICE ENTRY
-
+ SERVICE ENTRY
  </div>
-
 
  <div class="panel-body">
 
-
   <div class="servicebar">
 
-
    <div class="field">
 
-    <label>
-     Category
-    </label>
+    <label>Category</label>
 
     <select
-     id="serviceGender"
-     onchange="filterServices()">
+    id="serviceGender"
+    onchange="filterServices()">
 
-     <option>
-      All
-     </option>
-
-     <option>
-      Ladies
-     </option>
-
-     <option>
-      Gents
-     </option>
-
-     <option>
-      Other
-     </option>
+     <option>All</option>
+     <option>Ladies</option>
+     <option>Gents</option>
+     <option>Other</option>
 
     </select>
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     Search Service
-    </label>
+    <label>Search Service</label>
 
     <input
-     id="serviceSearch"
-     placeholder="Type service name..."
-     oninput="filterServices()">
+    id="serviceSearch"
+    placeholder="Type service name..."
+    oninput="filterServices()">
 
    </div>
-
-
 
    <div class="field">
 
-    <label>
-     Service
-    </label>
+    <label>Service</label>
 
-    <select
-     id="serviceSelect">
-
-    </select>
+    <select id="serviceSelect"></select>
 
    </div>
 
-
-
    <button
-    class="btn gold"
-    onclick="addItem()">
+   class="btn gold"
+   onclick="addItem()">
 
-    ADD
+   ADD
 
    </button>
 
-
   </div>
 
-
   <br>
-
 
   <table>
 
@@ -1304,823 +761,429 @@ td input{
 
     <tr>
 
-     <th width="50">
-      #
-     </th>
-
-     <th>
-      Service
-     </th>
-
-     <th>
-      Category
-     </th>
-
-     <th width="80">
-      Qty
-     </th>
-
-     <th width="110">
-      Rate
-     </th>
-
-     <th width="120">
-      Amount
-     </th>
-
-     <th width="50">
-      X
-     </th>
+     <th width="50">#</th>
+     <th>Service</th>
+     <th>Category</th>
+     <th width="80">Qty</th>
+     <th width="110">Rate</th>
+     <th width="120">Amount</th>
+     <th width="50">X</th>
 
     </tr>
 
    </thead>
 
-
-   <tbody
-    id="billItems">
-
-   </tbody>
-
+   <tbody id="billItems"></tbody>
 
   </table>
 
-
  </div>
 
 </div>
 
-
-
-<!-- ===============================
-     PAYMENT
-================================ -->
+<!-- PAYMENT -->
 
 <div class="panel">
 
-
  <div class="panel-head">
-
-  PAYMENT & TOTAL
-
+ PAYMENT & TOTAL
  </div>
-
 
  <div class="panel-body">
 
-
   <div class="formgrid">
 
-
    <div class="field">
-
-    <label>
-     Discount ₹
-    </label>
+    <label>Discount ₹</label>
 
     <input
-     id="discount"
-     type="number"
-     min="0"
-     value="0"
-     oninput="calculate()">
+    id="discount"
+    type="number"
+    min="0"
+    value="0"
+    oninput="calculate()">
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     GST %
-    </label>
+    <label>GST %</label>
 
     <input
-     id="gstRate"
-     type="number"
-     min="0"
-     value="0"
-     oninput="calculate()">
+    id="gstRate"
+    type="number"
+    min="0"
+    value="0"
+    oninput="calculate()">
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     Payment Mode
-    </label>
+    <label>Payment Mode</label>
 
     <select id="payment">
-
-     <option>
-      Cash
-     </option>
-
-     <option>
-      UPI
-     </option>
-
-     <option>
-      Card
-     </option>
-
+     <option>Cash</option>
+     <option>UPI</option>
+     <option>Card</option>
     </select>
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     Received ₹
-    </label>
+    <label>Received ₹</label>
 
     <input
-     id="received"
-     type="number"
-     min="0"
-     value="0"
-     oninput="calculateDue()">
+    id="received"
+    type="number"
+    min="0"
+    value="0"
+    oninput="calculateDue()">
 
    </div>
 
-
   </div>
-
-
 
   <div class="bill-total">
 
-
    <div class="totalrow">
-
-    <span>
-     Subtotal
-    </span>
-
-    <b>
-     ₹
-     <span id="subtotal">
-      0.00
-     </span>
-    </b>
-
+    <span>Subtotal</span>
+    <b>₹ <span id="subtotal">0.00</span></b>
    </div>
 
-
-
    <div class="totalrow">
-
-    <span>
-     Discount
-    </span>
-
-    <b>
-     ₹
-     <span id="discountShow">
-      0.00
-     </span>
-    </b>
-
+    <span>Discount</span>
+    <b>₹ <span id="discountShow">0.00</span></b>
    </div>
 
-
-
    <div class="totalrow">
-
-    <span>
-     GST
-    </span>
-
-    <b>
-     ₹
-     <span id="gstShow">
-      0.00
-     </span>
-    </b>
-
+    <span>GST</span>
+    <b>₹ <span id="gstShow">0.00</span></b>
    </div>
-
-
 
    <div class="totalrow net">
-
-    <span>
-     NET TOTAL
-    </span>
-
-    <span>
-
-     ₹
-
-     <span id="netTotal">
-      0.00
-     </span>
-
-    </span>
-
+    <span>NET TOTAL</span>
+    <span>₹ <span id="netTotal">0.00</span></span>
    </div>
-
-
 
    <div class="totalrow">
-
-    <span>
-     Received
-    </span>
-
-    <b>
-
-     ₹
-
-     <span id="receivedShow">
-      0.00
-     </span>
-
-    </b>
-
+    <span>Received</span>
+    <b>₹ <span id="receivedShow">0.00</span></b>
    </div>
-
-
 
    <div class="totalrow">
-
-    <span>
-     Balance / Due
-    </span>
-
-    <b>
-
-     ₹
-
-     <span id="dueShow">
-      0.00
-     </span>
-
-    </b>
-
+    <span>Balance / Due</span>
+    <b>₹ <span id="dueShow">0.00</span></b>
    </div>
-
 
   </div>
-
-
 
   <div class="btnrow">
 
-
    <button
-    class="btn gold"
-    onclick="saveBill()">
-
-    💾 SAVE BILL
-
+   class="btn gold"
+   onclick="saveBill()">
+   💾 SAVE BILL
    </button>
 
-
-
    <button
-    class="btn dark"
-    onclick="saveAndPrint()">
-
-    🖨 SAVE & PRINT
-
+   class="btn dark"
+   onclick="saveAndPrint()">
+   🖨 SAVE & PRINT
    </button>
 
-
-
    <button
-    class="btn dark"
-    onclick="printLastBill()">
-
-    PRINT
-
+   class="btn dark"
+   onclick="printLastBill()">
+   PRINT
    </button>
 
-
-
    <button
-    class="btn red"
-    onclick="newBill()">
-
-    NEW BILL
-
+   class="btn red"
+   onclick="newBill()">
+   NEW BILL
    </button>
-
 
   </div>
 
-
  </div>
 
 </div>
-
 
 </section>
 
+<!-- CUSTOMERS -->
 
-
-<!-- ===============================
-     CUSTOMERS
-================================ -->
-
-<section
- id="customers"
- class="page">
-
+<section id="customers" class="page">
 
 <div class="topbar">
-
- <div class="title">
-
-  CUSTOMER MASTER
-
- </div>
-
+ <div class="title">CUSTOMER MASTER</div>
 </div>
-
-
 
 <div class="panel">
 
-
  <div class="panel-head">
-
-  ADD CUSTOMER
-
+ ADD CUSTOMER
  </div>
-
 
  <div class="panel-body">
 
-
   <div class="formgrid">
 
-
    <div class="field">
-
-    <label>
-     Name
-    </label>
-
+    <label>Name</label>
     <input id="customerName">
-
    </div>
 
-
-
    <div class="field">
-
-    <label>
-     Mobile
-    </label>
-
+    <label>Mobile</label>
     <input id="customerMobile">
-
    </div>
-
-
 
    <div class="field">
 
-    <label>
-     Gender
-    </label>
+    <label>Gender</label>
 
     <select id="customerGender">
-
-     <option>
-      Ladies
-     </option>
-
-     <option>
-      Gents
-     </option>
-
-     <option>
-      Other
-     </option>
-
+     <option>Ladies</option>
+     <option>Gents</option>
+     <option>Other</option>
     </select>
 
    </div>
 
-
   </div>
-
 
   <div class="btnrow">
 
    <button
-    class="btn gold"
-    onclick="saveCustomer()">
+   class="btn gold"
+   onclick="saveCustomer()">
 
-    ADD CUSTOMER
+   ADD CUSTOMER
 
    </button>
 
   </div>
 
-
  </div>
 
 </div>
-
-
 
 <div class="panel">
 
-
  <div class="panel-head">
-
-  CUSTOMER LIST
-
+ CUSTOMER LIST
  </div>
-
 
  <div class="panel-body">
 
-
   <input
-   placeholder="Search customer..."
-   oninput="searchCustomers(this.value)">
+  placeholder="Search customer..."
+  oninput="searchCustomers(this.value)">
 
+  <br><br>
 
-  <br>
-  <br>
-
-
-  <div id="customerList">
-
-  </div>
-
+  <div id="customerList"></div>
 
  </div>
 
 </div>
-
 
 </section>
 
+<!-- SERVICES -->
 
-
-<!-- ===============================
-     SERVICES
-================================ -->
-
-<section
- id="services"
- class="page">
-
+<section id="services" class="page">
 
 <div class="topbar">
-
- <div class="title">
-
-  SERVICE MASTER
-
- </div>
-
+ <div class="title">SERVICE MASTER</div>
 </div>
-
-
 
 <div class="panel">
 
-
  <div class="panel-head">
-
-  ADD NEW SERVICE
-
+ ADD NEW SERVICE
  </div>
 
-
  <div class="panel-body">
-
 
   <div class="formgrid">
 
-
    <div class="field">
 
-    <label>
-     Service Name
-    </label>
+    <label>Service Name</label>
 
     <input
-     id="newServiceName"
-     placeholder="Hair Cut">
+    id="newServiceName"
+    placeholder="Hair Cut">
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     Category
-    </label>
+    <label>Category</label>
 
     <select id="newServiceCategory">
-
-     <option>
-      Ladies
-     </option>
-
-     <option>
-      Gents
-     </option>
-
-     <option>
-      Other
-     </option>
-
+     <option>Ladies</option>
+     <option>Gents</option>
+     <option>Other</option>
     </select>
 
    </div>
 
-
-
    <div class="field">
 
-    <label>
-     Rate ₹
-    </label>
+    <label>Rate ₹</label>
 
     <input
-     id="newServiceRate"
-     type="number"
-     min="0"
-     placeholder="0">
+    id="newServiceRate"
+    type="number"
+    min="0"
+    placeholder="0">
 
    </div>
 
-
   </div>
-
 
   <div class="btnrow">
 
    <button
-    class="btn gold"
-    onclick="saveService()">
+   class="btn gold"
+   onclick="saveService()">
 
-    ADD SERVICE
+   ADD SERVICE
 
    </button>
 
   </div>
 
-
  </div>
 
 </div>
 
-
-
 <div class="panel">
-
 
  <div class="panel-head">
-
-  SERVICE LIST
-
+ SERVICE LIST
  </div>
 
-
  <div class="panel-body">
-
-  <div id="serviceList">
-
-  </div>
-
+  <div id="serviceList"></div>
  </div>
 
 </div>
-
 
 </section>
 
+<!-- HISTORY -->
 
-
-<!-- ===============================
-     HISTORY
-================================ -->
-
-<section
- id="history"
- class="page">
-
+<section id="history" class="page">
 
 <div class="topbar">
 
-
  <div class="title">
-
-  BILL HISTORY
-
+ BILL HISTORY
  </div>
 
-
  <button
-  class="btn gold"
-  onclick="loadBills()">
+ class="btn gold"
+ onclick="loadBills()">
 
-  REFRESH
+ REFRESH
 
  </button>
 
-
 </div>
-
-
 
 <div class="panel">
 
  <div class="panel-body">
-
-  <div id="billHistory">
-
-  </div>
-
+  <div id="billHistory"></div>
  </div>
 
 </div>
-
 
 </section>
 
+<!-- REPORTS -->
 
-
-<!-- ===============================
-     REPORTS
-================================ -->
-
-<section
- id="reports"
- class="page">
-
+<section id="reports" class="page">
 
 <div class="topbar">
 
-
  <div class="title">
-
-  SALES REPORT
-
+ SALES REPORT
  </div>
 
-
  <button
-  class="btn gold"
-  onclick="loadReport()">
+ class="btn gold"
+ onclick="loadReport()">
 
-  REFRESH
+ REFRESH
 
  </button>
 
-
 </div>
-
-
 
 <div class="cards">
 
-
  <div class="stat">
-
-  <span>
-   TOTAL BILLS
-  </span>
-
-  <b id="reportBills">
-   0
-  </b>
-
+  <span>TOTAL BILLS</span>
+  <b id="reportBills">0</b>
  </div>
 
-
-
  <div class="stat">
-
-  <span>
-   TOTAL SALES
-  </span>
-
-  <b>
-
-   ₹
-
-   <span id="reportSales">
-    0
-   </span>
-
-  </b>
-
+  <span>TOTAL SALES</span>
+  <b>₹ <span id="reportSales">0</span></b>
  </div>
 
-
-
  <div class="stat">
-
-  <span>
-   TOTAL DISCOUNT
-  </span>
-
-  <b>
-
-   ₹
-
-   <span id="reportDiscount">
-    0
-   </span>
-
-  </b>
-
+  <span>TOTAL DISCOUNT</span>
+  <b>₹ <span id="reportDiscount">0</span></b>
  </div>
 
-
-
  <div class="stat">
-
-  <span>
-   TODAY SALES
-  </span>
-
-  <b>
-
-   ₹
-
-   <span id="todaySales">
-    0
-   </span>
-
-  </b>
-
+  <span>TODAY SALES</span>
+  <b>₹ <span id="todaySales">0</span></b>
  </div>
-
 
 </div>
-
 
 <br>
 
-
-
 <div class="panel">
 
-
  <div class="panel-head">
-
-  RECENT SALES
-
+ RECENT SALES
  </div>
-
 
  <div
-  class="panel-body"
-  id="recentSales">
-
- </div>
-
+ class="panel-body"
+ id="recentSales"></div>
 
 </div>
 
-
 </section>
-
 
 </main>
 
 </div>
 
-
-
 <!-- PRINT -->
 
-<div id="printWindow">
-
-</div>
-
-
+<div id="printWindow"></div>
 
 <script>
 
-
-/* ===============================
-   SUPABASE
-================================ */
+/* SUPABASE */
 
 const SUPABASE_URL =
 "https://wcnvhyftwgdttvzoeoya.supabase.co";
 
-
 const SUPABASE_KEY =
 "sb_publishable_37pgQIl_Cfj9cdCmSWvq8w_zdqIfpXC";
-
 
 const db =
 window.supabase.createClient(
@@ -2128,25 +1191,14 @@ window.supabase.createClient(
  SUPABASE_KEY
 );
 
-
-
-/* ===============================
-   VARIABLES
-================================ */
+/* VARIABLES */
 
 let services=[];
-
 let customers=[];
-
 let billItems=[];
-
 let lastSavedBill=null;
 
-
-
-/* ===============================
-   CLOCK
-================================ */
+/* CLOCK */
 
 function updateClock(){
 
@@ -2154,28 +1206,16 @@ function updateClock(){
 
  document.getElementById("clock").innerText=
 
- d.toLocaleDateString("en-IN")+
-
- "  "+
-
+ d.toLocaleDateString("en-IN")
+ +"  "+
  d.toLocaleTimeString("en-IN");
 
 }
 
-
-setInterval(
- updateClock,
- 1000
-);
-
-
+setInterval(updateClock,1000);
 updateClock();
 
-
-
-/* ===============================
-   STATUS
-================================ */
+/* STATUS */
 
 function status(text){
 
@@ -2183,299 +1223,189 @@ function status(text){
  document.getElementById("status");
 
  if(element){
-
   element.innerText=text;
-
  }
 
 }
 
-
-
-/* ===============================
-   PAGE
-================================ */
+/* PAGE */
 
 function openPage(id,button){
 
  document
  .querySelectorAll(".page")
  .forEach(x=>
-  x.classList.remove("active")
- );
-
+ x.classList.remove("active"));
 
  document
  .getElementById(id)
  .classList.add("active");
 
-
  document
  .querySelectorAll(".menu")
  .forEach(x=>
-  x.classList.remove("active")
- );
-
+ x.classList.remove("active"));
 
  button.classList.add("active");
 
-
  if(id==="customers"){
-
   loadCustomers();
-
  }
-
 
  if(id==="services"){
-
   loadServices();
-
  }
-
 
  if(id==="history"){
-
   loadBills();
-
  }
 
-
  if(id==="reports"){
-
   loadReport();
-
  }
 
 }
 
-
-
-/* ===============================
-   BILL NUMBER
-================================ */
+/* BILL NUMBER */
 
 function generateBillNo(){
 
  const d=new Date();
 
  return "DIVA"+
-
  d.getFullYear()+
-
- String(
-  d.getMonth()+1
- ).padStart(2,"0")+
-
- String(
-  d.getDate()
- ).padStart(2,"0")+
-
- String(
-  d.getHours()
- ).padStart(2,"0")+
-
- String(
-  d.getMinutes()
- ).padStart(2,"0")+
-
- String(
-  d.getSeconds()
- ).padStart(2,"0");
+ String(d.getMonth()+1).padStart(2,"0")+
+ String(d.getDate()).padStart(2,"0")+
+ String(d.getHours()).padStart(2,"0")+
+ String(d.getMinutes()).padStart(2,"0")+
+ String(d.getSeconds()).padStart(2,"0");
 
 }
 
-
-
-/* ===============================
-   LOAD SERVICES
-================================ */
+/* LOAD SERVICES */
 
 async function loadServices(){
 
  const result=
 
  await db
-
  .from("services")
-
  .select("*")
-
  .eq("active",true)
-
  .order("category")
-
  .order("service_name");
-
 
  if(result.error){
 
   console.error(result.error);
 
   status(
-   "Service error: "+
-   result.error.message
-  );
+  "Service error: "+
+  result.error.message);
 
   return;
-
  }
-
 
  services=result.data||[];
 
-
  filterServices();
-
-
  renderServiceList();
 
-
  status(
-  services.length+
-  " services loaded"
- );
+ services.length+
+ " services loaded");
 
 }
 
-
-
-/* ===============================
-   FILTER SERVICES
-================================ */
+/* FILTER SERVICES */
 
 function filterServices(){
 
  const category=
-
  document
  .getElementById("serviceGender")
  .value;
 
-
  const search=
-
  document
  .getElementById("serviceSearch")
  .value
  .toLowerCase()
  .trim();
 
-
  const select=
-
  document
  .getElementById("serviceSelect");
 
-
  select.innerHTML=
-
  '<option value="">Select Service</option>';
 
-
  services
+ .filter(s=>
+ category==="All"||
+ s.category===category)
 
  .filter(s=>
-
-  category==="All"||
-
-  s.category===category
-
- )
-
- .filter(s=>
-
-  !search||
-
-  s.service_name
-  .toLowerCase()
-  .includes(search)
-
- )
+ !search||
+ s.service_name
+ .toLowerCase()
+ .includes(search))
 
  .forEach(s=>{
-
 
   const option=
   document.createElement("option");
 
-
   option.value=s.id;
-
 
   option.dataset.name=
   s.service_name;
 
-
   option.dataset.category=
   s.category;
-
 
   option.dataset.rate=
   s.rate;
 
-
   option.textContent=
 
   s.service_name+
-
   " | "+
-
   s.category+
-
   " | ₹"+
-
   Number(s.rate).toFixed(2);
 
-
   select.appendChild(option);
-
 
  });
 
 }
 
-
-
-/* ===============================
-   ADD ITEM
-================================ */
+/* ADD ITEM */
 
 function addItem(){
 
  const select=
-
  document
  .getElementById("serviceSelect");
 
-
  const option=
-
  select.options[
-  select.selectedIndex
- ];
-
+ select.selectedIndex];
 
  if(!option||!option.value){
 
   alert(
-   "Please select a service."
-  );
+  "Please select a service.");
 
   return;
-
  }
-
 
  const id=option.value;
 
-
  const existing=
-
  billItems.find(
-  x=>x.service_id===id
- );
-
+ x=>x.service_id===id);
 
  if(existing){
 
@@ -2483,406 +1413,273 @@ function addItem(){
 
  }else{
 
-
   billItems.push({
 
-
    service_id:id,
-
-
    service_name:
    option.dataset.name,
-
-
    category:
    option.dataset.category,
-
-
    qty:1,
-
-
    rate:
    Number(option.dataset.rate)||0
 
-
   });
-
 
  }
 
-
  renderBillItems();
-
-
  calculate();
 
 }
 
-
-
-/* ===============================
-   RENDER ITEMS
-================================ */
+/* RENDER BILL ITEMS */
 
 function renderBillItems(){
 
  const tbody=
-
  document
  .getElementById("billItems");
 
-
  tbody.innerHTML="";
-
 
  billItems.forEach(
  (item,index)=>{
 
+ const tr=
+ document.createElement("tr");
 
-  const tr=
-  document.createElement("tr");
+ tr.innerHTML=`
 
+ <td>${index+1}</td>
 
-  tr.innerHTML=`
+ <td>
+ ${esc(item.service_name)}
+ </td>
 
+ <td>
 
-   <td>
-    ${index+1}
-   </td>
+ <span class="badge">
+ ${esc(item.category)}
+ </span>
 
+ </td>
 
-   <td>
-    ${esc(item.service_name)}
-   </td>
+ <td>
 
+ <input
+ type="number"
+ min="1"
+ value="${item.qty}"
+ onchange="changeQty(${index},this.value)">
 
-   <td>
+ </td>
 
-    <span class="badge">
+ <td>
 
-     ${esc(item.category)}
+ <input
+ type="number"
+ min="0"
+ value="${item.rate}"
+ onchange="changeRate(${index},this.value)">
 
-    </span>
+ </td>
 
-   </td>
+ <td class="right">
 
+ ₹${(
+ item.qty*
+ item.rate
+ ).toFixed(2)}
 
-   <td>
+ </td>
 
-    <input
+ <td class="center">
 
-     type="number"
+ <button
+ class="btn red"
+ style="padding:5px 9px"
+ onclick="removeItem(${index})">
 
-     min="1"
+ X
 
-     value="${item.qty}"
+ </button>
 
-     onchange="changeQty(${index},this.value)">
+ </td>
 
-   </td>
+ `;
 
-
-   <td>
-
-    <input
-
-     type="number"
-
-     min="0"
-
-     value="${item.rate}"
-
-     onchange="changeRate(${index},this.value)">
-
-   </td>
-
-
-   <td class="right">
-
-    ₹${(
-     item.qty*
-     item.rate
-    ).toFixed(2)}
-
-   </td>
-
-
-   <td class="center">
-
-    <button
-
-     class="btn red"
-
-     style="padding:5px 9px"
-
-     onclick="removeItem(${index})">
-
-     X
-
-    </button>
-
-   </td>
-
-
-  `;
-
-
-  tbody.appendChild(tr);
-
+ tbody.appendChild(tr);
 
  });
 
 }
 
-
-
-/* ===============================
-   QTY
-================================ */
+/* QTY */
 
 function changeQty(i,value){
 
  billItems[i].qty=
 
  Math.max(
-  1,
-  Number(value)||1
+ 1,
+ Number(value)||1
  );
 
-
  renderBillItems();
-
-
  calculate();
 
 }
 
-
-
-/* ===============================
-   RATE
-================================ */
+/* RATE */
 
 function changeRate(i,value){
 
  billItems[i].rate=
 
  Math.max(
-  0,
-  Number(value)||0
+ 0,
+ Number(value)||0
  );
 
-
  renderBillItems();
-
-
  calculate();
 
 }
 
-
-
-/* ===============================
-   REMOVE ITEM
-================================ */
+/* REMOVE */
 
 function removeItem(i){
 
  billItems.splice(i,1);
 
-
  renderBillItems();
-
-
  calculate();
 
 }
 
-
-
-/* ===============================
-   CALCULATE
-================================ */
+/* CALCULATE */
 
 function calculate(){
 
  let subtotal=0;
 
-
  billItems.forEach(item=>{
 
-  subtotal+=
-
-  item.qty*
-  item.rate;
+ subtotal+=
+ item.qty*
+ item.rate;
 
  });
-
 
  const discount=
 
  Math.max(
-
-  0,
-
-  Number(
-
-   document
-   .getElementById("discount")
-   .value
-
-  )||0
-
+ 0,
+ Number(
+ document
+ .getElementById("discount")
+ .value
+ )||0
  );
-
 
  const gstRate=
 
  Math.max(
-
-  0,
-
-  Number(
-
-   document
-   .getElementById("gstRate")
-   .value
-
-  )||0
-
+ 0,
+ Number(
+ document
+ .getElementById("gstRate")
+ .value
+ )||0
  );
-
 
  const taxable=
 
  Math.max(
-  0,
-  subtotal-discount
+ 0,
+ subtotal-discount
  );
 
-
  const gst=
-
- taxable*
- gstRate/
- 100;
-
+ taxable*gstRate/100;
 
  const net=
-
- taxable+
- gst;
-
+ taxable+gst;
 
  document
  .getElementById("subtotal")
  .innerText=
-
  subtotal.toFixed(2);
-
 
  document
  .getElementById("discountShow")
  .innerText=
-
  discount.toFixed(2);
-
 
  document
  .getElementById("gstShow")
  .innerText=
-
  gst.toFixed(2);
-
 
  document
  .getElementById("netTotal")
  .innerText=
-
  net.toFixed(2);
-
 
  calculateDue();
 
-
  return{
-
-  subtotal,
-
-  discount,
-
-  gst,
-
-  net
-
+ subtotal,
+ discount,
+ gst,
+ net
  };
 
 }
 
-
-
-/* ===============================
-   DUE
-================================ */
+/* DUE */
 
 function calculateDue(){
 
  const net=
 
  Number(
-
-  document
-  .getElementById("netTotal")
-  .innerText
-
+ document
+ .getElementById("netTotal")
+ .innerText
  )||0;
-
 
  const received=
 
  Math.max(
-
-  0,
-
-  Number(
-
-   document
-   .getElementById("received")
-   .value
-
-  )||0
-
+ 0,
+ Number(
+ document
+ .getElementById("received")
+ .value
+ )||0
  );
-
 
  document
  .getElementById("receivedShow")
  .innerText=
-
  received.toFixed(2);
-
 
  document
  .getElementById("dueShow")
  .innerText=
 
  Math.max(
-  0,
-  net-received
+ 0,
+ net-received
  ).toFixed(2);
 
 }
 
+/* SAVE BILL */
 
-
-/* ===============================
-   SAVE BILL
-================================ */
-
-async function saveBill(
- printAfter=false
-){
-
+async function saveBill(printAfter=false){
 
  const name=
 
@@ -2891,7 +1688,6 @@ async function saveBill(
  .value
  .trim();
 
-
  const mobile=
 
  document
@@ -2899,50 +1695,36 @@ async function saveBill(
  .value
  .trim();
 
-
  if(!name){
 
   alert(
-   "Customer name required."
-  );
+  "Customer name required.");
 
   return;
-
  }
-
 
  if(billItems.length===0){
 
   alert(
-   "Please add at least one service."
-  );
+  "Please add at least one service.");
 
   return;
-
  }
 
-
- const totals=
- calculate();
-
+ const totals=calculate();
 
  const payment=
-
  document
  .getElementById("payment")
  .value;
 
-
  const received=
 
  Number(
-
-  document
-  .getElementById("received")
-  .value
-
+ document
+ .getElementById("received")
+ .value
  )||0;
-
 
  const billNo=
 
@@ -2950,574 +1732,417 @@ async function saveBill(
  .getElementById("billNo")
  .value;
 
-
- status(
-  "Saving bill..."
- );
-
+ status("Saving bill...");
 
  let customerId=null;
-
-
 
  const customerSearch=
 
  await db
-
  .from("customers")
-
  .select("id")
-
  .eq("mobile",mobile)
-
  .limit(1);
 
-
-
  if(
-
-  customerSearch.data&&
-
-  customerSearch.data.length
-
+ customerSearch.data&&
+ customerSearch.data.length
  ){
 
-
   customerId=
-
-  customerSearch
-  .data[0]
-  .id;
-
+  customerSearch.data[0].id;
 
  }else{
-
 
   const newCustomer=
 
   await db
-
   .from("customers")
-
   .insert({
 
-
    customer_name:name,
-
-
    mobile:mobile,
 
-
    gender:
-
    document
    .getElementById("billGender")
    .value
 
-
   })
-
   .select()
-
   .single();
-
-
 
   if(newCustomer.error){
 
-
    alert(
-
-    "Customer save failed: "+
-
-    newCustomer.error.message
-
-   );
-
+   "Customer save failed: "+
+   newCustomer.error.message);
 
    status(
-    "Customer save failed"
-   );
-
+   "Customer save failed");
 
    return;
-
   }
 
-
   customerId=
-
   newCustomer.data.id;
 
-
  }
-
-
 
  const billResult=
 
  await db
-
  .from("bills")
-
  .insert({
 
-
   bill_no:billNo,
-
-
-  customer_id:
-  customerId,
-
-
-  customer_name:
-  name,
-
-
-  mobile:
-  mobile,
-
-
-  subtotal:
-  totals.subtotal,
-
-
-  discount:
-  totals.discount,
-
-
-  gst:
-  totals.gst,
-
-
-  grand_total:
-  totals.net,
-
-
-  payment_mode:
-  payment
-
+  customer_id:customerId,
+  customer_name:name,
+  mobile:mobile,
+  subtotal:totals.subtotal,
+  discount:totals.discount,
+  gst:totals.gst,
+  grand_total:totals.net,
+  payment_mode:payment
 
  })
-
  .select()
-
  .single();
-
-
 
  if(billResult.error){
 
-
   alert(
-
-   "Bill save failed: "+
-
-   billResult.error.message
-
-  );
-
+  "Bill save failed: "+
+  billResult.error.message);
 
   status(
-   "Bill save failed"
-  );
-
+  "Bill save failed");
 
   return;
-
  }
-
-
 
  const items=
 
- billItems.map(
- item=>({
-
+ billItems.map(item=>({
 
   bill_id:
   billResult.data.id,
 
-
   service_id:
   item.service_id,
-
 
   service_name:
   item.service_name,
 
-
   category:
   item.category,
-
 
   qty:
   item.qty,
 
-
   rate:
   item.rate,
-
 
   amount:
   item.qty*
   item.rate
 
-
- })
- );
-
-
+ }));
 
  const itemResult=
 
  await db
-
  .from("bill_items")
-
  .insert(items);
-
-
 
  if(itemResult.error){
 
   alert(
-
-   "Bill items save failed: "+
-
-   itemResult.error.message
-
-  );
+  "Bill items save failed: "+
+  itemResult.error.message);
 
   return;
-
  }
-
-
 
  lastSavedBill={
 
-
   ...billResult.data,
-
 
   received:received,
 
-
   items:[...billItems]
-
 
  };
 
-
-
  status(
-
-  "Bill saved: "+
-  billNo
-
- );
-
-
+ "Bill saved: "+billNo);
 
  alert(
 
-  "Bill saved successfully!\n\n"+
-
-  "Bill No: "+
-  billNo+
-
-  "\nAmount: ₹"+
-
-  totals.net.toFixed(2)
+ "Bill saved successfully!\n\n"+
+ "Bill No: "+billNo+
+ "\nAmount: ₹"+
+ totals.net.toFixed(2)
 
  );
 
-
-
  if(printAfter){
-
   printLastBill();
-
  }
 
 }
 
-
-
-/* ===============================
-   SAVE & PRINT
-================================ */
+/* SAVE & PRINT */
 
 function saveAndPrint(){
-
  saveBill(true);
-
 }
 
-
-
-/* ===============================
-   PRINT
-================================ */
+/* ATTRACTIVE PRINT */
 
 function printLastBill(){
 
  if(!lastSavedBill){
 
   alert(
-   "Please save the bill first."
-  );
+  "Please save the bill first.");
 
   return;
-
  }
 
-
- const b=
- lastSavedBill;
-
+ const b=lastSavedBill;
 
  const rows=
 
  b.items
+ .map((item,i)=>`
 
- .map(
- (item,i)=>`
+ <tr>
 
+ <td>${i+1}</td>
 
-  <tr>
+ <td>
+ ${esc(item.service_name)}
+ </td>
 
-   <td>
-    ${i+1}
-   </td>
+ <td>
+ ${esc(item.category)}
+ </td>
 
+ <td>${item.qty}</td>
 
-   <td>
-    ${esc(item.service_name)}
-   </td>
+ <td>
+ ₹${Number(item.rate).toFixed(2)}
+ </td>
 
+ <td>
+ ₹${(
+ item.qty*
+ item.rate
+ ).toFixed(2)}
+ </td>
 
-   <td>
-    ${esc(item.category)}
-   </td>
+ </tr>
 
-
-   <td>
-    ${item.qty}
-   </td>
-
-
-   <td>
-    ₹${Number(item.rate).toFixed(2)}
-   </td>
-
-
-   <td>
-    ₹${(
-     item.qty*
-     item.rate
-    ).toFixed(2)}
-   </td>
-
-  </tr>
-
-
- `
- )
-
+ `)
  .join("");
-
-
 
  document
  .getElementById("printWindow")
  .innerHTML=`
 
-
 <div style="
 max-width:760px;
 margin:auto;
 padding:25px;
-font-family:Arial;
+font-family:Arial,Helvetica,sans-serif;
 color:#000;
 ">
 
+<!-- ATTRACTIVE DIVA HEADER -->
 
 <div style="
 text-align:center;
+padding-bottom:15px;
 border-bottom:2px solid #000;
-padding-bottom:12px;
 ">
 
+<div style="
+font-size:28px;
+margin-bottom:2px;
+">
+♛
+</div>
 
-<h1 style="margin:0">
+<div style="
+font-family:Georgia,'Times New Roman',serif;
+font-size:42px;
+font-weight:bold;
+letter-spacing:10px;
+line-height:1;
+">
+DIVA
+</div>
 
-DIVA SALON & ACADEMY
+<div style="
+font-size:15px;
+font-weight:bold;
+letter-spacing:5px;
+margin-top:10px;
+">
+SALON & ACADEMY
+</div>
 
-</h1>
+<div style="
+font-size:11px;
+letter-spacing:2px;
+margin-top:8px;
+color:#555;
+">
+BEAUTY • HAIR • STYLE
+</div>
 
+<div style="
+margin-top:14px;
+font-size:12px;
+line-height:1.8;
+">
 
-<p style="margin:5px">
+BARHI CHOWK, JHUMRI TILAIYA ROAD<br>
 
-BARHI CHOWK, JHUMRI TILAIYA ROAD
+BESIDE FASHION WORLD MALL<br>
 
-</p>
+PIN CODE - 825405<br>
 
-
-<p style="margin:5px">
-
-BESIDE FASHION WORLD MALL
-
-</p>
-
-
-<p style="margin:5px">
-
-PIN CODE - 825405
-
-</p>
-
-
-<p style="margin:5px">
-
+<b>
 Mob: 9122119941 |
 WhatsApp: 9102469965
-
-</p>
-
+</b>
 
 </div>
 
+</div>
 
-<br>
+<div style="
+text-align:center;
+font-size:18px;
+font-weight:bold;
+margin:18px 0;
+letter-spacing:2px;
+">
 
+SALES INVOICE
+
+</div>
 
 <table style="
 width:100%;
 border-collapse:collapse;
+font-size:13px;
 ">
-
 
 <tr>
 
-<td>
+<td style="padding:6px 0">
 <b>Bill No:</b>
 </td>
 
-<td>
+<td style="padding:6px 0">
 ${esc(b.bill_no)}
 </td>
 
-<td>
+<td style="padding:6px 0">
 <b>Date:</b>
 </td>
 
-<td>
-
+<td style="padding:6px 0">
 ${new Date(
 b.created_at
 ).toLocaleString("en-IN")}
-
 </td>
 
 </tr>
 
-
 <tr>
 
-<td>
+<td style="padding:6px 0">
 <b>Customer:</b>
 </td>
 
-<td>
+<td style="padding:6px 0">
 ${esc(b.customer_name)}
 </td>
 
-<td>
+<td style="padding:6px 0">
 <b>Mobile:</b>
 </td>
 
-<td>
+<td style="padding:6px 0">
 ${esc(b.mobile||"")}
 </td>
 
 </tr>
 
-
 </table>
 
-
 <br>
-
 
 <table style="
 width:100%;
 border-collapse:collapse;
+font-size:13px;
 ">
-
 
 <thead>
 
 <tr>
 
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+">
 #
 </th>
 
-
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+text-align:left;
+">
 Service
-
 </th>
 
-
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+">
 Category
-
 </th>
 
-
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+">
 Qty
-
 </th>
 
-
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+">
 Rate
-
 </th>
-
 
 <th style="
-border:1px solid #777;
-padding:7px">
-
+border:1px solid #000;
+padding:8px;
+">
 Amount
-
 </th>
-
 
 </tr>
 
 </thead>
-
 
 <tbody>
 
@@ -3525,197 +2150,225 @@ ${rows}
 
 </tbody>
 
-
 </table>
 
+<style>
+
+#printWindow table tbody td{
+ border:1px solid #777;
+ padding:8px;
+}
+
+</style>
 
 <div style="
 width:330px;
 margin-left:auto;
-margin-top:20px;
+margin-top:22px;
+font-size:14px;
 ">
 
+<p style="
+display:flex;
+justify-content:space-between;
+">
 
-<p>
-
+<span>
 <b>Subtotal:</b>
+</span>
 
-₹${Number(
-b.subtotal
-).toFixed(2)}
-
-</p>
-
-
-<p>
-
-<b>Discount:</b>
-
-₹${Number(
-b.discount
-).toFixed(2)}
+<span>
+₹${Number(b.subtotal).toFixed(2)}
+</span>
 
 </p>
 
-
-<p>
-
-<b>GST:</b>
-
-₹${Number(
-b.gst
-).toFixed(2)}
-
-</p>
-
-
-<h2 style="
-border-top:2px solid #000;
-padding-top:10px;
+<p style="
+display:flex;
+justify-content:space-between;
 ">
 
-NET TOTAL:
+<span>
+<b>Discount:</b>
+</span>
 
+<span>
+₹${Number(b.discount).toFixed(2)}
+</span>
+
+</p>
+
+<p style="
+display:flex;
+justify-content:space-between;
+">
+
+<span>
+<b>GST:</b>
+</span>
+
+<span>
+₹${Number(b.gst).toFixed(2)}
+</span>
+
+</p>
+
+<div style="
+border-top:2px solid #000;
+border-bottom:2px solid #000;
+padding:12px 0;
+margin:15px 0;
+display:flex;
+justify-content:space-between;
+font-size:20px;
+font-weight:bold;
+">
+
+<span>
+NET TOTAL
+</span>
+
+<span>
 ₹${Number(
 b.grand_total
 ).toFixed(2)}
+</span>
 
-</h2>
+</div>
 
+<p style="
+display:flex;
+justify-content:space-between;
+">
 
-<p>
-
+<span>
 <b>Payment:</b>
+</span>
 
+<span>
 ${esc(b.payment_mode)}
+</span>
 
 </p>
 
+<p style="
+display:flex;
+justify-content:space-between;
+">
 
-<p>
-
+<span>
 <b>Received:</b>
+</span>
 
+<span>
 ₹${Number(
 b.received||0
 ).toFixed(2)}
+</span>
 
 </p>
 
+<p style="
+display:flex;
+justify-content:space-between;
+">
 
-<p>
-
+<span>
 <b>Due:</b>
+</span>
 
+<span>
 ₹${Math.max(
-
 0,
-
 Number(b.grand_total)-
 Number(b.received||0)
-
 ).toFixed(2)}
+</span>
 
 </p>
 
-
 </div>
-
-
-<br>
-
 
 <div style="
 text-align:center;
+margin-top:35px;
+padding-top:18px;
 border-top:1px dashed #777;
-padding-top:15px;
 ">
 
-<b>
+<div style="
+font-size:16px;
+font-weight:bold;
+">
 
 Thank You! Visit Again.
 
-</b>
+</div>
+
+<div style="
+font-size:11px;
+margin-top:8px;
+color:#555;
+letter-spacing:2px;
+">
+
+DIVA SALON & ACADEMY
 
 </div>
 
-
 </div>
 
+</div>
 
 `;
-
 
  window.print();
 
 }
 
-
-
-/* ===============================
-   NEW BILL
-================================ */
+/* NEW BILL */
 
 function newBill(){
 
  billItems=[];
 
-
  lastSavedBill=null;
-
 
  document
  .getElementById("billCustomer")
  .value="";
 
-
  document
  .getElementById("billMobile")
  .value="";
-
 
  document
  .getElementById("discount")
  .value=0;
 
-
  document
  .getElementById("gstRate")
  .value=0;
-
 
  document
  .getElementById("received")
  .value=0;
 
-
  document
  .getElementById("billNo")
  .value=
-
  generateBillNo();
 
-
  renderBillItems();
-
-
  calculate();
 
-
- status(
-  "New bill ready"
- );
+ status("New bill ready");
 
 }
 
-
-
-/* ===============================
-   SAVE CUSTOMER
-================================ */
+/* SAVE CUSTOMER */
 
 async function saveCustomer(){
-
 
  const name=
 
@@ -3723,7 +2376,6 @@ async function saveCustomer(){
  .getElementById("customerName")
  .value
  .trim();
-
 
  const mobile=
 
@@ -3732,153 +2384,93 @@ async function saveCustomer(){
  .value
  .trim();
 
-
  const gender=
 
  document
  .getElementById("customerGender")
  .value;
 
-
  if(!name){
 
   alert(
-   "Customer name required."
-  );
+  "Customer name required.");
 
   return;
-
  }
-
-
 
  const result=
 
  await db
-
  .from("customers")
-
  .insert({
 
-
   customer_name:name,
-
-
   mobile:mobile,
-
-
   gender:gender
 
-
  });
-
-
 
  if(result.error){
 
   alert(
-
-   "Customer save failed: "+
-
-   result.error.message
-
-  );
+  "Customer save failed: "+
+  result.error.message);
 
   return;
-
  }
 
-
-
  alert(
-  "Customer added successfully."
- );
-
+ "Customer added successfully.");
 
  document
  .getElementById("customerName")
  .value="";
 
-
  document
  .getElementById("customerMobile")
  .value="";
-
 
  loadCustomers();
 
 }
 
-
-
-/* ===============================
-   LOAD CUSTOMERS
-================================ */
+/* LOAD CUSTOMERS */
 
 async function loadCustomers(){
-
 
  const result=
 
  await db
-
  .from("customers")
-
  .select("*")
-
  .order(
-
-  "created_at",
-
-  {
-   ascending:false
-  }
-
+ "created_at",
+ {ascending:false}
  );
 
-
-
  if(result.error){
-
 
   document
   .getElementById("customerList")
   .innerHTML=
-
   "<p>"+
-
   esc(result.error.message)+
-
   "</p>";
 
-
   return;
-
  }
 
+ customers=result.data||[];
 
-
- customers=
- result.data||[];
-
-
- renderCustomers(
-  customers
- );
+ renderCustomers(customers);
 
 }
 
-
-
-/* ===============================
-   RENDER CUSTOMERS
-================================ */
+/* RENDER CUSTOMERS */
 
 function renderCustomers(list){
 
-
  if(!list.length){
-
 
   document
   .getElementById("customerList")
@@ -3886,148 +2478,94 @@ function renderCustomers(list){
 
   "<p class='small'>No customers found.</p>";
 
-
   return;
-
  }
-
-
 
  document
  .getElementById("customerList")
  .innerHTML=`
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Name
-</th>
-
-<th>
-Mobile
-</th>
-
-<th>
-Gender
-</th>
-
-<th>
-Date
-</th>
+<th>Name</th>
+<th>Mobile</th>
+<th>Gender</th>
+<th>Date</th>
 
 </tr>
 
 </thead>
 
-
 <tbody>
 
-
-${list.map(
-c=>`
-
+${list.map(c=>`
 
 <tr>
 
-
 <td>
-
 ${esc(c.customer_name)}
-
 </td>
 
-
 <td>
-
 ${esc(c.mobile||"")}
-
 </td>
 
-
 <td>
-
 ${esc(c.gender||"")}
-
 </td>
 
-
 <td>
-
 ${new Date(
 c.created_at
 ).toLocaleDateString("en-IN")}
-
 </td>
-
 
 </tr>
 
-
-`
-).join("")}
-
+`).join("")}
 
 </tbody>
 
-
 </table>
-
 
 `;
 
 }
 
-
-
-/* ===============================
-   SEARCH CUSTOMER
-================================ */
+/* SEARCH CUSTOMER */
 
 function searchCustomers(value){
 
  const q=
  value.toLowerCase();
 
-
  renderCustomers(
 
-  customers.filter(
-   c=>
+ customers.filter(
+ c=>
 
-   (c.customer_name||"")
+ (c.customer_name||"")
+ .toLowerCase()
+ .includes(q)
 
-   .toLowerCase()
+ ||
 
-   .includes(q)
+ (c.mobile||"")
+ .includes(q)
 
-
-   ||
-
-
-   (c.mobile||"")
-
-   .includes(q)
-
-  )
+ )
 
  );
 
 }
 
-
-
-/* ===============================
-   SAVE SERVICE
-================================ */
+/* SAVE SERVICE */
 
 async function saveService(){
-
 
  const name=
 
@@ -4036,109 +2574,70 @@ async function saveService(){
  .value
  .trim();
 
-
  const category=
 
  document
  .getElementById("newServiceCategory")
  .value;
 
-
  const rate=
 
  Number(
-
-  document
-  .getElementById("newServiceRate")
-  .value
-
+ document
+ .getElementById("newServiceRate")
+ .value
  )||0;
-
-
 
  if(!name){
 
   alert(
-   "Service name required."
-  );
+  "Service name required.");
 
   return;
-
  }
-
-
 
  const result=
 
  await db
-
  .from("services")
-
  .insert({
 
-
   service_name:name,
-
-
   category:category,
-
-
   rate:rate,
-
-
   active:true
 
-
  });
-
-
 
  if(result.error){
 
   alert(
-
-   "Service save failed: "+
-
-   result.error.message
-
-  );
+  "Service save failed: "+
+  result.error.message);
 
   return;
-
  }
 
-
-
  alert(
-  "Service added successfully."
- );
-
+ "Service added successfully.");
 
  document
  .getElementById("newServiceName")
  .value="";
 
-
  document
  .getElementById("newServiceRate")
  .value="";
-
 
  loadServices();
 
 }
 
-
-
-/* ===============================
-   SERVICE LIST
-================================ */
+/* SERVICE LIST */
 
 function renderServiceList(){
 
-
  if(!services.length){
-
 
   document
   .getElementById("serviceList")
@@ -4146,69 +2645,44 @@ function renderServiceList(){
 
   "<p class='small'>No services found.</p>";
 
-
   return;
-
  }
-
-
 
  document
  .getElementById("serviceList")
  .innerHTML=`
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Service
-</th>
-
-<th>
-Category
-</th>
-
-<th>
-Rate
-</th>
+<th>Service</th>
+<th>Category</th>
+<th>Rate</th>
 
 </tr>
 
 </thead>
 
-
 <tbody>
 
-
-${services.map(
-s=>`
-
+${services.map(s=>`
 
 <tr>
 
-
 <td>
-
 ${esc(s.service_name)}
-
 </td>
-
 
 <td>
 
 <span class="badge">
-
 ${esc(s.category)}
-
 </span>
 
 </td>
-
 
 <td>
 
@@ -4218,82 +2692,50 @@ s.rate||0
 
 </td>
 
-
 </tr>
 
-
-`
-).join("")}
-
+`).join("")}
 
 </tbody>
 
-
 </table>
-
 
 `;
 
 }
 
-
-
-/* ===============================
-   BILL HISTORY
-================================ */
+/* BILL HISTORY */
 
 async function loadBills(){
-
 
  const result=
 
  await db
-
  .from("bills")
-
  .select("*")
-
  .order(
-
-  "created_at",
-
-  {
-   ascending:false
-  }
-
+ "created_at",
+ {ascending:false}
  )
-
  .limit(200);
 
-
-
  if(result.error){
-
 
   document
   .getElementById("billHistory")
   .innerHTML=
 
   "<p>"+
-
   esc(result.error.message)+
-
   "</p>";
 
-
   return;
-
  }
-
-
 
  const bills=
  result.data||[];
 
-
-
  if(!bills.length){
-
 
   document
   .getElementById("billHistory")
@@ -4301,84 +2743,47 @@ async function loadBills(){
 
   "<p class='small'>No bills found.</p>";
 
-
   return;
-
  }
-
-
 
  document
  .getElementById("billHistory")
  .innerHTML=`
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>
-Bill No
-</th>
-
-<th>
-Customer
-</th>
-
-<th>
-Mobile
-</th>
-
-<th>
-Total
-</th>
-
-<th>
-Payment
-</th>
-
-<th>
-Date
-</th>
+<th>Bill No</th>
+<th>Customer</th>
+<th>Mobile</th>
+<th>Total</th>
+<th>Payment</th>
+<th>Date</th>
 
 </tr>
 
 </thead>
 
-
 <tbody>
 
-
-${bills.map(
-b=>`
-
+${bills.map(b=>`
 
 <tr>
 
-
 <td>
-
 ${esc(b.bill_no)}
-
 </td>
 
-
 <td>
-
 ${esc(b.customer_name||"")}
-
 </td>
-
 
 <td>
-
 ${esc(b.mobile||"")}
-
 </td>
-
 
 <td>
 
@@ -4388,13 +2793,9 @@ b.grand_total||0
 
 </td>
 
-
 <td>
-
 ${esc(b.payment_mode||"")}
-
 </td>
-
 
 <td>
 
@@ -4404,184 +2805,113 @@ b.created_at
 
 </td>
 
-
 </tr>
 
-
-`
-).join("")}
-
+`).join("")}
 
 </tbody>
 
-
 </table>
-
 
 `;
 
 }
 
-
-
-/* ===============================
-   REPORT
-================================ */
+/* REPORT */
 
 async function loadReport(){
-
 
  const result=
 
  await db
-
  .from("bills")
-
  .select("*")
-
  .order(
-
-  "created_at",
-
-  {
-   ascending:false
-  }
-
+ "created_at",
+ {ascending:false}
  );
-
-
 
  if(result.error){
 
   alert(
-   result.error.message
-  );
+  result.error.message);
 
   return;
-
  }
-
-
 
  const bills=
  result.data||[];
 
-
-
  let totalSales=0;
-
  let totalDiscount=0;
-
  let todaySales=0;
-
-
 
  const today=
 
  new Date()
-
  .toISOString()
-
  .slice(0,10);
-
-
 
  bills.forEach(b=>{
 
-
   totalSales+=
-
   Number(
-   b.grand_total
+  b.grand_total
   )||0;
-
-
 
   totalDiscount+=
-
   Number(
-   b.discount
+  b.discount
   )||0;
 
-
-
   if(
-
-   String(
-    b.created_at
-   ).slice(0,10)
-
-   ===
-
-   today
-
+  String(
+  b.created_at
+  ).slice(0,10)
+  ===today
   ){
 
-
    todaySales+=
-
    Number(
-    b.grand_total
+   b.grand_total
    )||0;
-
 
   }
 
-
  });
-
-
 
  document
  .getElementById("reportBills")
  .innerText=
-
  bills.length;
-
-
 
  document
  .getElementById("reportSales")
  .innerText=
-
  totalSales.toFixed(2);
-
-
 
  document
  .getElementById("reportDiscount")
  .innerText=
-
  totalDiscount.toFixed(2);
-
-
 
  document
  .getElementById("todaySales")
  .innerText=
-
  todaySales.toFixed(2);
-
-
 
  document
  .getElementById("recentSales")
  .innerHTML=
 
-
  bills
-
  .slice(0,20)
-
- .map(
- b=>`
-
+ .map(b=>`
 
 <div style="
 padding:10px;
 border-bottom:1px solid #29220f;
 ">
-
 
 <b style="
 color:#d4af37">
@@ -4590,293 +2920,190 @@ ${esc(b.bill_no)}
 
 </b>
 
-
 &nbsp;
-
 
 ${esc(
 b.customer_name||""
 )}
 
-
 <span style="
 float:right">
-
 
 ₹${Number(
 b.grand_total||0
 ).toFixed(2)}
 
-
 </span>
-
 
 </div>
 
+`)
+.join("")
 
-`
- )
+||
 
- .join("")
-
-
- ||
-
-
- "<p class='small'>No sales.</p>";
+"<p class='small'>No sales.</p>";
 
 }
 
-
-
-/* ===============================
-   HTML ESCAPE
-================================ */
+/* HTML ESCAPE */
 
 function esc(value){
 
  return String(
-  value??""
+ value??""
  )
 
  .replace(
-  /&/g,
-  "&amp;"
+ /&/g,
+ "&amp;"
  )
 
  .replace(
-  /</g,
-  "&lt;"
+ /</g,
+ "&lt;"
  )
 
  .replace(
-  />/g,
-  "&gt;"
+ />/g,
+ "&gt;"
  )
 
  .replace(
-  /"/g,
-  "&quot;"
+ /"/g,
+ "&quot;"
  )
 
  .replace(
-  /'/g,
-  "&#039;"
+ /'/g,
+ "&#039;"
  );
 
 }
 
-
-
-/* ===============================
-   PWA INSTALL
-================================ */
+/* PWA INSTALL */
 
 let deferredInstallPrompt=null;
 
-
-
 window.addEventListener(
+"beforeinstallprompt",
+function(event){
 
- "beforeinstallprompt",
+ event.preventDefault();
 
- function(event){
-
-
-  event.preventDefault();
-
-
-  deferredInstallPrompt=
-  event;
-
-
-  const button=
-
-  document
-  .getElementById("installBtn");
-
-
-  if(button){
-
-   button.style.display=
-   "block";
-
-  }
-
-
- }
-);
-
-
-
-async function installApp(){
-
-
- if(!deferredInstallPrompt){
-
-
-  alert(
-
-   "Chrome menu (⋮) open karke "+
-   "'Install DIVA SALON & ACADEMY' "+
-   "select karein."
-
-  );
-
-
-  return;
-
- }
-
-
-
- deferredInstallPrompt.prompt();
-
-
-
- try{
-
-  await deferredInstallPrompt.userChoice;
-
- }catch(error){
-
-  console.log(error);
-
- }
-
-
-
- deferredInstallPrompt=null;
-
-
+ deferredInstallPrompt=event;
 
  const button=
-
  document
  .getElementById("installBtn");
 
-
-
  if(button){
-
-  button.style.display=
-  "none";
-
+  button.style.display="block";
  }
 
 }
-
-
-
-window.addEventListener(
-
- "appinstalled",
-
- function(){
-
-
-  const button=
-
-  document
-  .getElementById("installBtn");
-
-
-  if(button){
-
-   button.style.display=
-   "none";
-
-  }
-
-
- }
 );
 
+async function installApp(){
 
+ if(!deferredInstallPrompt){
 
-/* ===============================
-   SERVICE WORKER
-================================ */
+  alert(
 
-if(
- "serviceWorker" in navigator
-){
+  "Chrome menu (⋮) open karke "+
+  "'Install DIVA SALON & ACADEMY' "+
+  "select karein."
 
+  );
 
- window.addEventListener(
+  return;
+ }
 
-  "load",
+ deferredInstallPrompt.prompt();
 
-  function(){
+ try{
+  await deferredInstallPrompt.userChoice;
+ }catch(error){
+  console.log(error);
+ }
 
+ deferredInstallPrompt=null;
 
-   navigator
-   .serviceWorker
+ const button=
+ document
+ .getElementById("installBtn");
 
-   .register("./sw.js")
-
-   .then(
-
-    function(){
-
-     console.log(
-      "DIVA Salon App Ready"
-     );
-
-    }
-
-   )
-
-   .catch(
-
-    function(error){
-
-     console.log(
-
-      "Service Worker Error:",
-
-      error
-
-     );
-
-    }
-
-   );
-
-
-  }
-
- );
-
+ if(button){
+  button.style.display="none";
+ }
 
 }
 
+window.addEventListener(
+"appinstalled",
+function(){
 
+ const button=
+ document
+ .getElementById("installBtn");
 
-/* ===============================
-   START
-================================ */
+ if(button){
+  button.style.display="none";
+ }
+
+}
+);
+
+/* SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+ window.addEventListener(
+ "load",
+ function(){
+
+ navigator
+ .serviceWorker
+ .register("./sw.js")
+
+ .then(
+ function(){
+
+ console.log(
+ "DIVA Salon App Ready"
+ );
+
+ }
+ )
+
+ .catch(
+ function(error){
+
+ console.log(
+ "Service Worker Error:",
+ error
+ );
+
+ }
+ );
+
+ }
+ );
+
+}
+
+/* START */
 
 document
 .getElementById("billNo")
 .value=
-
 generateBillNo();
-
-
 
 loadServices();
 
-
-
-status(
- "Ready"
-);
-
+status("Ready");
 
 </script>
 
-
 </body>
-
 </html>
